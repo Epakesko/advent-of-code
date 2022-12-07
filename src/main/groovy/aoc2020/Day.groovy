@@ -6,7 +6,7 @@ import groovy.time.TimeDuration
 abstract class Day {
 	String dayNumber
 	Day() {
-		dayNumber = this.getClass().getSimpleName()
+		dayNumber = this.getClass().getSimpleName().toLowerCase()
 	}
 	
 	void solve() {
