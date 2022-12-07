@@ -4,8 +4,6 @@ import com.epakesko.advent.of.code.aoc_2019.Day18.Day18.Node
 import com.epakesko.advent.of.code.common.Util
 import com.epakesko.advent.of.code.day.Day
 
-import static org.junit.jupiter.api.Assertions.assertLinesMatch
-
 import java.awt.Point
 
 public class Day21 extends Day{	
