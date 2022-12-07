@@ -1,5 +1,6 @@
 package com.epakesko.advent.of.code.aoc_2021
 
+import com.epakesko.advent.of.code.aoc_2021.day01.Day01
 import com.epakesko.advent.of.code.day.Day
 import com.epakesko.advent.of.code.day.DayFactory
 import com.epakesko.advent.of.code.exception.NonExistentDayException
@@ -18,6 +19,7 @@ class DayFactory2021 implements DayFactory {
 		switch(day) {
 			case "01":
 			case "1":
+				return new Day01();
 			case "02":
 			case "2":
 			case "03":
