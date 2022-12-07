@@ -5,10 +5,6 @@ import com.epakesko.advent.of.code.common.Util
 import com.epakesko.advent.of.code.day.Day
 
 class Day10 extends Day {
-
-	private int getGcd(int n1, int n2) {
-	    return n2 == 0 ? n1 : getGcd(n2, n1 % n2)
-	}
 	
 	private double calcAngleDegrees(int x, int y) {
 	  return Math.atan2(-x, -y) * 180 / Math.PI;
@@ -27,7 +23,7 @@ class Day10 extends Day {
 						asteroidsOnY.each { int xOfSeen, Integer numberOfOthersSeen ->
 							int xDiff = x - xOfSeen
 							int yDiff = y - yOfSeen
-							int gcd = xDiff < 0 ? getGcd(-xDiff, yDiff) : getGcd(xDiff, yDiff)
+							int gcd = xDiff < 0 ? Util.getGcd(-xDiff, yDiff) : Util.getGcd(xDiff, yDiff)
 							if(gcd > 1) {
 								xDiff /= gcd
 								yDiff /= gcd
@@ -81,7 +77,7 @@ class Day10 extends Day {
 						asteroidsOnY.each { int xOfSeen ->
 							int xDiff = x - xOfSeen
 							int yDiff = y - yOfSeen
-							int gcd = xDiff < 0 ? getGcd(-xDiff, yDiff) : getGcd(xDiff, yDiff)
+							int gcd = xDiff < 0 ? Util.getGcd(-xDiff, yDiff) : Util.getGcd(xDiff, yDiff)
 							if(gcd > 1) {
 								xDiff /= gcd
 								yDiff /= gcd
