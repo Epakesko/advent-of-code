@@ -3,11 +3,13 @@ package com.epakesko.advent.of.code.aoc_2019.util
 import com.epakesko.advent.of.code.common.Util
 
 class IntCode {
-	int pointer = 0
-	int[] memory
-	List output = []
-	List input
 	int inputIdx = 0
+	long pointer = 0
+	long relativeBase = 0
+	
+	Map<Long, Long> memory = new HashMap<>();
+	List input
+	List output = []
 	
 	public IntCode(fileName) {
 		this(fileName, 1)
@@ -18,7 +20,7 @@ class IntCode {
 	}
 	
 	public IntCode(fileName, List input) {
-		memory = Util.readFile(fileName)[0].split(",").collect{ it as Integer }.toArray()
+		Util.readFile(fileName)[0].split(",").collect{ it as Long }.eachWithIndex { elem, idx -> memory.put(idx as Long, elem)}
 		this.input = input
 	}
 	
@@ -40,6 +42,7 @@ class IntCode {
 		
 		while(!(instruction instanceof StopInstruction)) {
 			def instructionResult = instruction.runInstruction();
+			
 			pointer += instruction.parameters.size() + 1
 			if(instruction instanceof OutputInstruction) break;
 			
@@ -53,18 +56,31 @@ class IntCode {
 	}
 	
 	abstract class Instruction {
-		int[] parameters
+		long[] parameters
 		List parameterModes
 		
 		abstract void runInstruction();
 		
-		int getParameterByIndex(int index) {
+		long getParameterByIndex(int index) {
 			int mode = parameterModes[index]
-			int parameter = parameters[index]
+			long parameter = parameters[index]
 			
 			switch(mode) {
-				case 0: return IntCode.this.memory[parameter]
+				case 0: return IntCode.this.getFromMemory(parameter)
 				case 1:	return parameter
+				case 2:	return IntCode.this.getFromMemory(relativeBase + parameter)
+				default: return -1
+			}
+		}
+		
+		long getDestinationByIndex(int index) {
+			int mode = parameterModes[index]
+			long parameter = parameters[index]
+			
+			switch(mode) {
+				case 0: 
+				case 1:	return parameter
+				case 2:	return relativeBase + parameter
 				default: return -1
 			}
 		}
@@ -72,49 +88,48 @@ class IntCode {
 	
 	class AdditionInstruction extends Instruction {
 		
-		public AdditionInstruction(Integer opCodeIndex, List parameterModes) {
-			parameters = IntCode.this.memory[(opCodeIndex+1)..(opCodeIndex+3)]
+		public AdditionInstruction(Long opCodeIndex, List parameterModes) {
+			parameters = IntCode.this.getRangeFromMemory(opCodeIndex+1, opCodeIndex+3)
 			this.parameterModes = parameterModes
 		}
 		
 		@Override
 		public void runInstruction(){
-			IntCode.this.memory[parameters[2]] = getParameterByIndex(0) + getParameterByIndex(1)
+			IntCode.this.memory[getDestinationByIndex(2)] = (getParameterByIndex(0) + getParameterByIndex(1))
 		}
 	}
 	
 	class MultiplyInstruction extends Instruction {
 		
-		public MultiplyInstruction(Integer opCodeIndex, List parameterModes) {
-			parameters = IntCode.this.memory[(opCodeIndex+1)..(opCodeIndex+3)]
+		public MultiplyInstruction(Long opCodeIndex, List parameterModes) {
+			parameters = IntCode.this.getRangeFromMemory(opCodeIndex+1, opCodeIndex+3)
 			this.parameterModes = parameterModes
 		}
 		
 		@Override
 		public void runInstruction(){
-			IntCode.this.memory[parameters[2]] = getParameterByIndex(0) * getParameterByIndex(1)
+			IntCode.this.memory[getDestinationByIndex(2)] = (getParameterByIndex(0) * getParameterByIndex(1))
 		}
 	}
 	
 	class InputInstruction extends Instruction {
 	
-		public InputInstruction(Integer opCodeIndex, List parameterModes) {
-			parameters = IntCode.this.memory[(opCodeIndex+1)]
+		public InputInstruction(Long opCodeIndex, List parameterModes) {
+			parameters = IntCode.this.getRangeFromMemory(opCodeIndex+1, opCodeIndex+1)
 			this.parameterModes = parameterModes
 		}
 		
 		@Override
 		public void runInstruction() {
-			IntCode.this.memory[parameters[0]] = IntCode.this.input[IntCode.this.inputIdx]
-			IntCode.this.inputIdx++
+			IntCode.this.memory[getDestinationByIndex(0)] = IntCode.this.input[IntCode.this.inputIdx++]
 		}
 		
 	}
 	
 	class OutputInstruction extends Instruction {
 	
-		public OutputInstruction(Integer opCodeIndex, List parameterModes) {
-			parameters = IntCode.this.memory[(opCodeIndex+1)]
+		public OutputInstruction(Long opCodeIndex, List parameterModes) {
+			parameters = IntCode.this.getRangeFromMemory(opCodeIndex+1, opCodeIndex+1)
 			this.parameterModes = parameterModes
 		}
 		
@@ -126,8 +141,8 @@ class IntCode {
 	
 	class JumpIfTrueInstruction extends Instruction {
 	
-		public JumpIfTrueInstruction(Integer opCodeIndex, List parameterModes) {
-			parameters = IntCode.this.memory[(opCodeIndex+1), (opCodeIndex+2)]
+		public JumpIfTrueInstruction(Long opCodeIndex, List parameterModes) {
+			parameters = IntCode.this.getRangeFromMemory(opCodeIndex+1, opCodeIndex+2)
 			this.parameterModes = parameterModes
 		}
 		
@@ -141,8 +156,8 @@ class IntCode {
 	
 	class JumpIfFalseInstruction extends Instruction {
 	
-		public JumpIfFalseInstruction(Integer opCodeIndex, List parameterModes) {
-			parameters = IntCode.this.memory[(opCodeIndex+1), (opCodeIndex+2)]
+		public JumpIfFalseInstruction(Long opCodeIndex, List parameterModes) {
+			parameters = IntCode.this.getRangeFromMemory(opCodeIndex+1, opCodeIndex+2)
 			this.parameterModes = parameterModes
 		}
 		
@@ -156,37 +171,50 @@ class IntCode {
 	
 	class LessThanInstruction extends Instruction {
 	
-		public LessThanInstruction(Integer opCodeIndex, List parameterModes) {
-			parameters = IntCode.this.memory[(opCodeIndex+1)..(opCodeIndex+3)]
+		public LessThanInstruction(Long opCodeIndex, List parameterModes) {
+			parameters = IntCode.this.getRangeFromMemory(opCodeIndex+1, opCodeIndex+3)
 			this.parameterModes = parameterModes
 		}
 		
 		@Override
 		public void runInstruction() {
 			if(getParameterByIndex(0) < getParameterByIndex(1)) {
-				IntCode.this.memory[parameters[2]] = 1
+				IntCode.this.memory[getDestinationByIndex(2)] = 1
 			}
 			else {
-				IntCode.this.memory[parameters[2]] = 0
+				IntCode.this.memory[getDestinationByIndex(2)] = 0
 			}
 		}
 	}
 	
 	class EqualsInstruction extends Instruction {
 	
-		public EqualsInstruction(Integer opCodeIndex, List parameterModes) {
-			parameters = IntCode.this.memory[(opCodeIndex+1)..(opCodeIndex+3)]
+		public EqualsInstruction(Long opCodeIndex, List parameterModes) {
+			parameters = IntCode.this.getRangeFromMemory(opCodeIndex+1, opCodeIndex+3)
 			this.parameterModes = parameterModes
 		}
 		
 		@Override
 		public void runInstruction() {
 			if(getParameterByIndex(0) == getParameterByIndex(1)) {
-				IntCode.this.memory[parameters[2]] = 1
+				IntCode.this.memory[getDestinationByIndex(2)] = 1
 			}
 			else {
-				IntCode.this.memory[parameters[2]] = 0
+				IntCode.this.memory[getDestinationByIndex(2)] = 0
 			}
+		}
+	}
+	
+	class AdjustRelativeBaseInstruction extends Instruction {
+	
+		public AdjustRelativeBaseInstruction(Long opCodeIndex, List parameterModes) {
+			parameters = IntCode.this.getRangeFromMemory(opCodeIndex+1, opCodeIndex+1)
+			this.parameterModes = parameterModes
+		}
+		
+		@Override
+		public void runInstruction() {
+			relativeBase += getParameterByIndex(0);
 		}
 	}
 	
@@ -199,9 +227,9 @@ class IntCode {
 		
 	}
 
-	Instruction createInstruction(int opCodeIndex) {
-		int opCode = memory[opCodeIndex] % 100
-		List parameterModes = readParameterModes(memory[opCodeIndex] / 100 as Integer);
+	Instruction createInstruction(long opCodeIndex) {
+		int opCode = getFromMemory(opCodeIndex) % 100
+		List parameterModes = readParameterModes(getFromMemory(opCodeIndex) / 100 as Integer);
 		
 		switch(opCode) {
 			case 1:	return new AdditionInstruction(opCodeIndex, parameterModes)
@@ -212,6 +240,7 @@ class IntCode {
 			case 6:	return new JumpIfFalseInstruction(opCodeIndex, parameterModes)
 			case 7:	return new LessThanInstruction(opCodeIndex, parameterModes)
 			case 8:	return new EqualsInstruction(opCodeIndex, parameterModes)
+			case 9:	return new AdjustRelativeBaseInstruction(opCodeIndex, parameterModes)
 			case 99: return new StopInstruction()
 			default: println "error, unexpected opcode: $opCode"
 		}
@@ -224,6 +253,18 @@ class IntCode {
 			fullParameterModes /= 10
 		}
 		return parameterModes
+	}
+	
+	private long getFromMemory(long index) {
+		return memory.containsKey(index) ? memory.get(index) : 0
+	}
+	
+	private long[] getRangeFromMemory(long startIndex, long endIndex) {
+		long[] range = new long[endIndex - startIndex + 1];
+		for(long index = startIndex; index <= endIndex; index++) {
+			range[index - startIndex] = memory.containsKey(index) ? memory.get(index) : 0
+		}
+		return range
 	}
 }
 
