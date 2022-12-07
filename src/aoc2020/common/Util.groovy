@@ -7,4 +7,11 @@ public class Util {
 		println file.getAbsolutePath()
 		return file.readLines()
 	}
+	
+	def static readFileAsInts(fileName) {
+		List lines = readFile(fileName)
+		lines.collect {
+			it as Integer
+		}
+	}
 }
