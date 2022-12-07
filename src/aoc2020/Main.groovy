@@ -7,9 +7,10 @@ import aoc2020.day04.Day04
 import aoc2020.day05.Day05
 import aoc2020.day06.Day06
 import aoc2020.day07.Day07
+import aoc2020.day08.Day08
 
 public class Main {
 	public static void main(String[] args) {
-		new Day07().run("run2", "day07")
+		new Day08().run("run2", "day08")
 	}
 }
