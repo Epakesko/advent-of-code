@@ -1,6 +1,7 @@
 package com.epakesko.advent.of.code.aoc_2022
 
 import com.epakesko.advent.of.code.aoc_2022.day01.Day01
+import com.epakesko.advent.of.code.aoc_2022.day02.Day02
 import com.epakesko.advent.of.code.aoc_2022.day03.Day03
 import com.epakesko.advent.of.code.day.Day
 import com.epakesko.advent.of.code.day.DayFactory
@@ -23,6 +24,7 @@ class DayFactory2022 implements DayFactory {
 				return new Day01();
 			case "02":
 			case "2":
+				return new Day02();
 			case "03":
 			case "3":
 				return new Day03();
