@@ -1,6 +1,5 @@
 package com.epakesko.advent.of.code.aoc_2019.Day03
 
-import com.epakesko.advent.of.code.aoc_2019.util.IntCode
 import com.epakesko.advent.of.code.common.Util
 import com.epakesko.advent.of.code.day.Day
 
