@@ -28,9 +28,9 @@ import aoc2020.day25.Day25
 
 public class Main {
 	public static void main(String[] args) {
-		println " -------------------------------------------------------------------------------"
-		println "| DAY\t\tPART1 (TIME)\t\t\tPART2 (TIME)\t\t\t|"
-		println " -------------------------------------------------------------------------------"
+		println "\u001B[36m -------------------------------------------------------------------------------\u001B[0m"
+		println "\u001B[36m| DAY          PART1 (TIME)                   PART2 (TIME)\t\t\t     |\u001B[0m"
+		println "\u001B[36m -------------------------------------------------------------------------------\u001B[0m"
 		new Day01().solve()
 		new Day02().solve()
 		new Day03().solve()

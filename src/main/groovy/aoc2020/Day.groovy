@@ -17,7 +17,21 @@ abstract class Day {
 		Date timeStop2 = new Date()
 		TimeDuration duration1 = TimeCategory.minus(timeStop1, timeStart)
 		TimeDuration duration2 = TimeCategory.minus(timeStop2, timeStop1)
-		println "  $dayNumber\t\t$part1Solution ($duration1)\t\t$part2Solution ($duration2)"
+		
+		String coloredDuration1
+		String coloredDuration2
+		
+		if(duration1.seconds < 1) coloredDuration1 = "\u001B[32m" + duration1 + "\u001B[0m"
+		else if(duration1.seconds < 3) coloredDuration1 = "\u001B[33m" + duration1 + "\u001B[0m"
+		else coloredDuration1 = "\u001B[31m" + duration1 + "\u001B[0m"
+		
+		if(duration2.seconds < 1) coloredDuration2 = "\u001B[32m" + duration2 + "\u001B[0m"
+		else if(duration2.seconds < 3) coloredDuration2 = "\u001B[33m" + duration2 + "\u001B[0m"
+		else coloredDuration2 = "\u001B[31m" + duration2 + "\u001B[0m"
+		
+		int spaces = 15 - (part1Solution.toString().length())
+		
+		println "  \u001B[35m${dayNumber}\u001B[0m        $part1Solution ($coloredDuration1)" + (" " * spaces) + "$part2Solution ($coloredDuration2)"
 	}
 	
 	void run(runType){
