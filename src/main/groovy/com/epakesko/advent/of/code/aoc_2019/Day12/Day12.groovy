@@ -43,7 +43,7 @@ class Day12 extends Day {
 		
 		Map firstOccurenceOfSamePos = new HashMap<>()
 		
-		int index = 1;
+		long index = 0;
 		while(true){
 			index++
 			moons.each { Moon moon ->
@@ -55,14 +55,24 @@ class Day12 extends Day {
 			}
 			moons.each { Moon moon ->
 				moon.move()
-				if(moon.position.equals(moon.originalPosition)) {
-					 if(!firstOccurenceOfSamePos.containsKey(moon.id)) { println "${moon.id} $index"
-						 firstOccurenceOfSamePos.put(moon.id, index)}
-				}
 			}
-			if(firstOccurenceOfSamePos.size() == 4) break;
+			if(moons[0].position.x == moons[0].originalPosition.x && moons[0].velocity.x == 0 &&
+				moons[1].position.x == moons[1].originalPosition.x && moons[1].velocity.x == 0 && 
+				moons[2].position.x == moons[2].originalPosition.x && moons[2].velocity.x == 0) if(!firstOccurenceOfSamePos.containsKey("x")) firstOccurenceOfSamePos.put("x", index)
+			if(moons[0].position.y == moons[0].originalPosition.y && moons[0].velocity.y == 0 &&
+				moons[1].position.y == moons[1].originalPosition.y && moons[1].velocity.y == 0 && 
+				moons[2].position.y == moons[2].originalPosition.y && moons[2].velocity.y == 0)  if(!firstOccurenceOfSamePos.containsKey("y")) firstOccurenceOfSamePos.put("y", index)
+			if(moons[0].position.z == moons[0].originalPosition.z && moons[0].velocity.z == 0 &&
+				moons[1].position.z == moons[1].originalPosition.z && moons[1].velocity.z == 0 && 
+				moons[2].position.z == moons[2].originalPosition.z && moons[2].velocity.z == 0)  if(!firstOccurenceOfSamePos.containsKey("z")) firstOccurenceOfSamePos.put("z", index)
+			if(firstOccurenceOfSamePos.size() == 3) break;
 		}
-		Util.getLcm(firstOccurenceOfSamePos.get(0), Util.getLcm(firstOccurenceOfSamePos.get(1) , Util.getLcm(firstOccurenceOfSamePos.get(1), firstOccurenceOfSamePos.get(2))))
+		long lcm = 1
+		firstOccurenceOfSamePos.values().each {
+			lcm = Util.getLcm(it, lcm)
+		}
+		println firstOccurenceOfSamePos
+		lcm
 	}
 	
 	class Moon {

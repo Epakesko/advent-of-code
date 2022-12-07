@@ -25,8 +25,7 @@ public class Util {
 		return n2 == 0 ? n1 : getGcd(n2, n1 % n2)
 	}
 	
-	static long getLcm(long n1, long n2){ 
-		println "$n1 $n2"
+	static long getLcm(long n1, long n2){
 		Math.abs(n1 * n2) / getGcd(n1, n2)
 	}
 }
