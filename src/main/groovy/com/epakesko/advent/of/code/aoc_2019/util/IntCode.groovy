@@ -6,14 +6,18 @@ class IntCode {
 	int pointer = 0
 	int[] memory
 	List output = []
-	int input
+	List input
+	int inputIdx = 0
 	
 	public IntCode(fileName) {
-		memory = Util.readFile(fileName)[0].split(",").collect{ it as Integer }.toArray()
-		this.input = 1
+		this(fileName, 1)
 	}
 	
 	public IntCode(fileName, input) {
+		this(fileName, [input])
+	}
+	
+	public IntCode(fileName, List input) {
 		memory = Util.readFile(fileName)[0].split(",").collect{ it as Integer }.toArray()
 		this.input = input
 	}
@@ -21,13 +25,31 @@ class IntCode {
 	def run() {
 		Instruction instruction = createInstruction(pointer)
 		
-		while(!(instruction instanceof  StopInstruction)) {
+		while(!(instruction instanceof StopInstruction)) {
 			instruction.runInstruction();
 			pointer += instruction.parameters.size() + 1
 			instruction = createInstruction(pointer)
 		}
 		
 		return output.join(", ")
+	}
+	
+	def runUntilOutput() {
+		Instruction instruction = createInstruction(pointer)
+		output = []
+		
+		while(!(instruction instanceof StopInstruction)) {
+			def instructionResult = instruction.runInstruction();
+			pointer += instruction.parameters.size() + 1
+			if(instruction instanceof OutputInstruction) break;
+			
+			instruction = createInstruction(pointer)
+		}
+		return output[0]
+	}
+	
+	def addInput(int input) {
+		this.input << input
 	}
 	
 	abstract class Instruction {
@@ -83,7 +105,8 @@ class IntCode {
 		
 		@Override
 		public void runInstruction() {
-			IntCode.this.memory[parameters[0]] = IntCode.this.input
+			IntCode.this.memory[parameters[0]] = IntCode.this.input[IntCode.this.inputIdx]
+			IntCode.this.inputIdx++
 		}
 		
 	}
@@ -177,38 +200,20 @@ class IntCode {
 	}
 
 	Instruction createInstruction(int opCodeIndex) {
-		int instructionCode = memory[opCodeIndex] % 100
+		int opCode = memory[opCodeIndex] % 100
 		List parameterModes = readParameterModes(memory[opCodeIndex] / 100 as Integer);
 		
-		if(instructionCode == 1) {
-			return new AdditionInstruction(opCodeIndex, parameterModes)
-		}
-		else if(instructionCode == 2) {
-			return new MultiplyInstruction(opCodeIndex, parameterModes)
-		}
-		else if(instructionCode == 3) {
-			return new InputInstruction(opCodeIndex, parameterModes)
-		}
-		else if(instructionCode == 4) {
-			return new OutputInstruction(opCodeIndex, parameterModes)
-		}
-		else if(instructionCode == 5) {
-			return new JumpIfTrueInstruction(opCodeIndex, parameterModes)
-		}
-		else if(instructionCode == 6) {
-			return new JumpIfFalseInstruction(opCodeIndex, parameterModes)
-		}
-		else if(instructionCode == 7) {
-			return new LessThanInstruction(opCodeIndex, parameterModes)
-		}
-		else if(instructionCode == 8) {
-			return new EqualsInstruction(opCodeIndex, parameterModes)
-		}
-		else if(instructionCode == 99) {
-			return new StopInstruction()
-		}
-		else {
-			println "error, unexpected opcode: $instructionCode"
+		switch(opCode) {
+			case 1:	return new AdditionInstruction(opCodeIndex, parameterModes)
+			case 2:	return new MultiplyInstruction(opCodeIndex, parameterModes)
+			case 3:	return new InputInstruction(opCodeIndex, parameterModes)
+			case 4:	return new OutputInstruction(opCodeIndex, parameterModes)
+			case 5:	return new JumpIfTrueInstruction(opCodeIndex, parameterModes)
+			case 6:	return new JumpIfFalseInstruction(opCodeIndex, parameterModes)
+			case 7:	return new LessThanInstruction(opCodeIndex, parameterModes)
+			case 8:	return new EqualsInstruction(opCodeIndex, parameterModes)
+			case 99: return new StopInstruction()
+			default: println "error, unexpected opcode: $opCode"
 		}
 	}
 	
