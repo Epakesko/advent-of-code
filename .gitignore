@@ -64,3 +64,6 @@ liferay-theme.json
 backup_tmp/
 dist/
 
+
+# Ignore Gradle build output directory
+build
