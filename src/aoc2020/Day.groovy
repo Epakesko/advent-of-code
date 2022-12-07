@@ -3,7 +3,10 @@ package aoc2020;
 abstract class Day {
 	void run(runType, dayNumber){
 		if(runType == "test") {
-			test()
+			test(dayNumber)
+		}
+		else if(runType == "test2") {
+			test2(dayNumber)
 		}
 		else if(runType == "run"){
 			run(dayNumber)
@@ -13,7 +16,13 @@ abstract class Day {
 		}
 	}
 
-	abstract void test();
+	void test(dayNumber) {
+		println calculateResult("src/aoc2020/${dayNumber}/testinput.txt")
+	}
+
+	void test2(dayNumber) {
+		println calculateResult2("src/aoc2020/${dayNumber}/testinput.txt")
+	}
 	
 	void run(dayNumber) {
 		println calculateResult("src/aoc2020/${dayNumber}/input.txt")

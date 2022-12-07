@@ -6,12 +6,6 @@ import aoc2020.common.Util
 public class Day01 extends Day{
 	
 	@Override
-	void test() {
-		if(514579 == calculateResult("aoc2020/day01/testinput.txt")) println "success"
-		else println "fail"
-	}
-	
-	@Override
 	def calculateResult(fileName){
 		def intList = Util.readFile(fileName)
 		
