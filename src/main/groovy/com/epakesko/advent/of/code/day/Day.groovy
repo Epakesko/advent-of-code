@@ -28,6 +28,7 @@ abstract class Day {
 		else coloredDuration2 = "\u001B[31m" + duration2 + "\u001B[0m"
 		
 		int spaces = 15 - (part1Solution.toString().length())
+		if(spaces < 0) spaces = 0
 		
 		println "  \u001B[35m${dayNumber}\u001B[0m        $part1Solution ($coloredDuration1)" + (" " * spaces) + "$part2Solution ($coloredDuration2)"
 	}
