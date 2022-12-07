@@ -2,8 +2,9 @@ from pathlib import Path
 import sys
 import time
 import day01.sol
+import day02.sol
 
-days = [day01]
+days = [day01, day02]
 
 def runDay(day, singleDay):
     start = time.perf_counter()
@@ -46,6 +47,8 @@ if(len(sys.argv) > 1):
     match sys.argv[1]:
         case "1":
             runDay(day01.sol, True)
+        case "2":
+            runDay(day02.sol, True)
         case _:
             print(sys.argv[1] + " is not done. Please provide the day as a simple one or two digit number.")
 else:
