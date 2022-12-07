@@ -18,6 +18,7 @@ import com.epakesko.advent.of.code.aoc_2021.day16.Day16
 import com.epakesko.advent.of.code.aoc_2021.day17.Day17
 import com.epakesko.advent.of.code.aoc_2021.day18.Day18
 import com.epakesko.advent.of.code.aoc_2021.day19.Day19
+import com.epakesko.advent.of.code.aoc_2021.day20.Day20
 import com.epakesko.advent.of.code.day.Day
 import com.epakesko.advent.of.code.day.DayFactory
 import com.epakesko.advent.of.code.exception.NonExistentDayException
