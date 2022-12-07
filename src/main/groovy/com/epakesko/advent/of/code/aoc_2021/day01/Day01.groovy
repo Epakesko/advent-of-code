@@ -3,9 +3,7 @@ package com.epakesko.advent.of.code.aoc_2021.day01;
 import com.epakesko.advent.of.code.common.Util
 import com.epakesko.advent.of.code.day.Day
 
-public class Day01 extends Day{
-	final static int SUM = 2020
-	
+public class Day01 extends Day{	
 	@Override
 	def calculateResult(fileName){
 		List intList = Util.readFileAsInts(fileName)
