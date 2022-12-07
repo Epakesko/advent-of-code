@@ -61,7 +61,7 @@ class Day13 extends Day {
 		else if(ballOnX > paddleOnX) intCode.addInput(1)
 		else intCode.addInput(0)
 		while(true) {
-			outputValues = intCode.runUntilInput().split(", ").collect{it as Integer}
+			outputValues = intCode.continueUntilInput().split(", ").collect{it as Integer}
 			int newScore = printGame(outputValues, tiles)
 			if(newScore != -1) score = newScore
 			//print "Current score: $score"

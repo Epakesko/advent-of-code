@@ -56,6 +56,20 @@ class IntCode {
 	def runUntilInput() {
 		output = []
 		Instruction instruction = createInstruction(pointer)
+		
+		
+		while(!(instruction instanceof StopInstruction || instruction instanceof InputInstruction)) {
+			def instructionResult = instruction.runInstruction();
+			pointer += instruction.parameters.size() + 1
+			instruction = createInstruction(pointer)
+		}
+		
+		return output.join(", ")
+	}
+	
+	def continueUntilInput() {
+		output = []
+		Instruction instruction = createInstruction(pointer)
 		def instructionResult = instruction.runInstruction();
 		pointer += instruction.parameters.size() + 1
 		instruction = createInstruction(pointer)
