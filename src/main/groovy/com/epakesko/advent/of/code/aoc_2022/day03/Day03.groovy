@@ -7,15 +7,12 @@ public class Day03 extends Day{
 	@Override
 	def calculateResult(fileName){
 		List lines = Util.readFile(fileName)
-		int sum = 0
-		lines.each { String line ->
+		lines.sum { String line ->
 			int mid = line.size() / 2
 			int value = line.substring(0, mid).getChars().toList().intersect(line.substring(mid).getChars().toList())[0]
-			if(value < 91) value -= 38
-			else value -= 96
-			sum += value
+			if(value < 91) value - 38
+			else value - 96
 		}
-		sum
 	}
 	
 	@Override
