@@ -8,7 +8,6 @@ class Day07 extends Day {
 
 	@Override
 	public Object calculateResult(Object fileName) {
-		return -1
 		List firstInputs = [0, 1, 2, 3, 4]
 		int max = 0
 		List maxOutput

@@ -9,10 +9,10 @@ class Day02 extends Day {
 	@Override
 	public Object calculateResult(Object fileName) {
 		IntCode intCode = new IntCode(fileName)
-		intCode.memory[1] = 12
-		intCode.memory[2] = 2
+		intCode.memory.put(1L, 12)
+		intCode.memory.put(2L, 2)
 		intCode.run()
-		intCode.memory[0]
+		intCode.memory[0L]
 	}
 
 	@Override
@@ -20,10 +20,10 @@ class Day02 extends Day {
 		for(int i = 0; i < 100; i++) {
 			for(int j = 0; j < 100; j++) {
 				IntCode intCode = new IntCode(fileName)
-				intCode.memory[1] = i
-				intCode.memory[2] = j
+				intCode.memory.put(1L, i)
+				intCode.memory.put(2L, j)
 				intCode.run()
-				if(intCode.memory[0] == 19690720) {
+				if(intCode.memory[0L] == 19690720) {
 					return i * 100 + j
 				}
 			}

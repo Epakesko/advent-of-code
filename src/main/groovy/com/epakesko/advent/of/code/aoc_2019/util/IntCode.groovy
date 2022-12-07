@@ -12,16 +12,16 @@ class IntCode {
 	List output = []
 	
 	public IntCode(fileName) {
-		//this(fileName, 1)
 		Util.readFile(fileName)[0].split(",").collect{ it as Long }.eachWithIndex { elem, idx -> memory.put(idx as Long, elem)}
 	}
 	
 	public IntCode(fileName, input) {
-		this(fileName, [input])
+		this(fileName)
+		this.input = [input]
 	}
 	
 	public IntCode(fileName, List input) {
-		Util.readFile(fileName)[0].split(",").collect{ it as Long }.eachWithIndex { elem, idx -> memory.put(idx as Long, elem)}
+		this(fileName)
 		this.input = input
 	}
 	
@@ -38,6 +38,22 @@ class IntCode {
 	}
 	
 	def runUntilOutput() {
+		Instruction instruction = createInstruction(pointer)
+		output = []
+		
+		while(!(instruction instanceof StopInstruction)) {
+			def instructionResult = instruction.runInstruction();
+			
+			pointer += instruction.parameters.size() + 1
+			if(instruction instanceof OutputInstruction) break;
+			
+			instruction = createInstruction(pointer)
+		}
+		return output[0]
+	}
+	
+	def runUntilInput() {
+		
 		Instruction instruction = createInstruction(pointer)
 		output = []
 		

@@ -8,7 +8,7 @@ class Day05 extends Day {
 
 	@Override
 	public Object calculateResult(Object fileName) {
-		IntCode intCode = new IntCode(fileName)
+		IntCode intCode = new IntCode(fileName, 1)
 		intCode.run()
 	}
 	

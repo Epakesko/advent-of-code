@@ -28,7 +28,7 @@ class Day08 extends Day {
 	@Override
 	public Object calculateResult2(Object fileName) {
 		List layers = Util.readFile(fileName)[0].toList().collate(150)*.join()
-		List decoded = [[],[],[],[],[],[]]
+		List<List<String>> decoded = [[],[],[],[],[],[]]
 		for(int j = 0; j < 6; j++) {
 			for(int i = 0; i < 25; i++) {
 				String color = "2"
@@ -40,6 +40,6 @@ class Day08 extends Day {
 				decoded[j] << color
 			}
 		}
-		"\n" + decoded*.join("").join("\n")
+		"\n" + decoded*.join("").collect{String line -> line.replace("0", " ").replace("1", "#")}.join("\n")
 	}
 }
