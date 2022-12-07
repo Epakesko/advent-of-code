@@ -63,6 +63,7 @@ class DayFactory2021 implements DayFactory {
 			case "13":
 				return new Day13();
 			case "14":
+				return new Day14();
 			case "15":
 			case "16":
 			case "17":
