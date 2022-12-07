@@ -41,6 +41,7 @@ node_modules/
 **/.web_bundle_build
 .gradle
 /.gradle
+!gradle/wrapper/gradle-wrapper.jar
 .idea
 /.idea
 /bundles
