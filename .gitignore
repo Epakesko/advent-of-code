@@ -68,3 +68,6 @@ dist/
 
 # Ignore Gradle build output directory
 build
+
+# Python
+__pycache__

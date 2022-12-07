@@ -1,5 +1,10 @@
-f = open("./input.txt")
-lines = f.readlines()
+import sys
+sys.path.append(".")
+sys.path.append("..")
+from util import readLines
+lines = readLines(__file__)
+
+name = "Calorie Counting"
 
 def part1():
     cal = 0
@@ -25,5 +30,6 @@ def part2():
     cals.sort()
     return sum(cals[-3:])
 
-print(part1())
-print(part2())
+if __name__ == "__main__":
+    print(part1())
+    print(part2())
