@@ -7,11 +7,13 @@ class IntCode {
 	long pointer = 0
 	long relativeBase = 0
 	
-	Map<Long, Long> memory = new HashMap<>();
+	Map<Long, Long> memory = new HashMap<>()
+	Map<Long, Long> originalMemory = new HashMap<>()
 	List input
 	List output = []
 	
 	public IntCode(fileName) {
+		Util.readFile(fileName)[0].split(",").collect{ it as Long }.eachWithIndex { elem, idx -> originalMemory.put(idx as Long, elem)}
 		Util.readFile(fileName)[0].split(",").collect{ it as Long }.eachWithIndex { elem, idx -> memory.put(idx as Long, elem)}
 		this.input = []
 	}
@@ -24,6 +26,15 @@ class IntCode {
 	public IntCode(fileName, List input) {
 		this(fileName)
 		this.input = input
+	}
+	
+	private void reset() {
+		memory = originalMemory.findAll{true}
+		input.clear()
+		output.clear()
+		inputIdx = 0
+		pointer = 0
+		relativeBase = 0
 	}
 	
 	def run() {
