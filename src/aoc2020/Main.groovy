@@ -1,9 +1,9 @@
 package aoc2020;
 
-import aoc2020.day14.Day14
+import aoc2020.day16.Day16
 
 public class Main {
 	public static void main(String[] args) {
-		new Day14().run("run2", "day14")
+		new Day16().run("run2", "day16")
 	}
 }
