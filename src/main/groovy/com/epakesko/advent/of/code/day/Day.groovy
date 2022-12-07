@@ -5,15 +5,13 @@ import groovy.time.TimeDuration
 
 abstract class Day {
 	String dayNumber
-	Day() {
-		dayNumber = this.getClass().getSimpleName().toLowerCase()
-	}
+	int year
 	
 	void solve(String test) {
 		Date timeStart = new Date()
-		def part1Solution = calculateResult("src/main/resources/aoc2020/${dayNumber}/${test}input.txt")
+		def part1Solution = calculateResult("src/main/resources/${year}/${dayNumber}/${test}input.txt")
 		Date timeStop1 = new Date()
-		def part2Solution = calculateResult2("src/main/resources/aoc2020/${dayNumber}/${test}input.txt")
+		def part2Solution = calculateResult2("src/main/resources/${year}/${dayNumber}/${test}input.txt")
 		Date timeStop2 = new Date()
 		TimeDuration duration1 = TimeCategory.minus(timeStop1, timeStart)
 		TimeDuration duration2 = TimeCategory.minus(timeStop2, timeStop1)
@@ -50,19 +48,19 @@ abstract class Day {
 	}
 
 	void test(def resourcesFolder) {
-		println calculateResult("$resourcesFolder/aoc2020/${dayNumber}/testinput.txt")
+		println calculateResult("$resourcesFolder/${year}/${dayNumber}/testinput.txt")
 	}
 
 	void test2(def resourcesFolder) {
-		println calculateResult2("$resourcesFolder/aoc2020/${dayNumber}/testinput.txt")
+		println calculateResult2("$resourcesFolder/${year}/${dayNumber}/testinput.txt")
 	}
 	
 	void run(def resourcesFolder) {
-		println calculateResult("$resourcesFolder/aoc2020/${dayNumber}/input.txt")
+		println calculateResult("$resourcesFolder/${year}/${dayNumber}/input.txt")
 	}
 	
 	void run2(def resourcesFolder) {
-		println calculateResult2("$resourcesFolder/aoc2020/${dayNumber}/input.txt")
+		println calculateResult2("$resourcesFolder/${year}/${dayNumber}/input.txt")
 	}
 	
 	abstract def calculateResult(fileName)

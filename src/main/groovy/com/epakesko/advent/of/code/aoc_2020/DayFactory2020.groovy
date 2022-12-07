@@ -30,9 +30,15 @@ import com.epakesko.advent.of.code.aoc_2020.day24.Day24
 import com.epakesko.advent.of.code.aoc_2020.day25.Day25
 
 class DayFactory2020 implements DayFactory {
-	
 	@Override
-	public Day getDay(String day) throws NonExistentDayException {
+	public Day getDay(String dayNumber) throws NonExistentDayException {	
+		Day day = getDayObject(dayNumber);
+		day.dayNumber = "day" + dayNumber.padLeft(2, "0")
+		day.year = 2020
+		return day
+	}
+	
+	private Day getDayObject(String day) throws NonExistentDayException{
 		switch(day) {
 			case "01":
 			case "1":
