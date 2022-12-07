@@ -12,7 +12,8 @@ class IntCode {
 	List output = []
 	
 	public IntCode(fileName) {
-		this(fileName, 1)
+		//this(fileName, 1)
+		Util.readFile(fileName)[0].split(",").collect{ it as Long }.eachWithIndex { elem, idx -> memory.put(idx as Long, elem)}
 	}
 	
 	public IntCode(fileName, input) {
