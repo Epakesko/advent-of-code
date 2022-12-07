@@ -2,6 +2,7 @@ package com.epakesko.advent.of.code.aoc_2019
 
 import com.epakesko.advent.of.code.aoc_2019.Day01.Day01
 import com.epakesko.advent.of.code.aoc_2019.Day02.Day02
+import com.epakesko.advent.of.code.aoc_2019.Day03.Day03
 import com.epakesko.advent.of.code.day.Day
 import com.epakesko.advent.of.code.day.DayFactory
 import com.epakesko.advent.of.code.exception.NonExistentDayException
@@ -26,6 +27,7 @@ class DayFactory2019 implements DayFactory {
 				return new Day02();
 			case "03":
 			case "3":
+				return new Day03();
 			case "04":
 			case "4":
 			case "05":
