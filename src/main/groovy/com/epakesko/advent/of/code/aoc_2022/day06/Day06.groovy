@@ -4,11 +4,6 @@ import com.epakesko.advent.of.code.common.Util
 import com.epakesko.advent.of.code.day.Day
 
 public class Day06 extends Day{
-	private static final LS = "\$ ls"
-	private static final DIR = "dir"
-	private static final CD = "\$ cd"
-	private static final UP = ".."
-	
 	@Override
 	def calculateResult(fileName){
 		String line = Util.readFile(fileName)[0]
