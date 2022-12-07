@@ -13,16 +13,16 @@ abstract class Day {
 		}
 	}
 
-	void test() {}
+	abstract void test();
 	
 	void run(dayNumber) {
-		println calculateResult("aoc2020/${dayNumber}/input.txt")
+		println calculateResult("src/aoc2020/${dayNumber}/input.txt")
 	}
 	
 	void run2(dayNumber) {
-		println calculateResult2("aoc2020/${dayNumber}/input.txt")
+		println calculateResult2("src/aoc2020/${dayNumber}/input.txt")
 	}
 	
-	def calculateResult(fileName) {}
-	def calculateResult2(fileName) {}
+	abstract def calculateResult(fileName);
+	abstract def calculateResult2(fileName);
 }

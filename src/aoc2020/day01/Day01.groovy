@@ -1,6 +1,7 @@
 package aoc2020.day01;
 
 import aoc2020.Day
+import aoc2020.common.Util
 
 public class Day01 extends Day{
 	
@@ -12,9 +13,7 @@ public class Day01 extends Day{
 	
 	@Override
 	def calculateResult(fileName){
-		File file = new File(fileName)
-		println file.getAbsolutePath()
-		def intList = file.readLines()
+		def intList = Util.readFile(fileName)
 		
 		for(int i = 0; i < intList.size; i++) {
 			for(int j = i+1; j < intList.size; j++) {
@@ -28,9 +27,7 @@ public class Day01 extends Day{
 	
 	@Override
 	def calculateResult2(fileName){
-		File file = new File(fileName)
-		println file.getAbsolutePath()
-		def intList = file.readLines()
+		def intList = Util.readFile(fileName)
 		
 		for(int i = 0; i < intList.size; i++) {
 			for(int j = i+1; j < intList.size; j++) {
