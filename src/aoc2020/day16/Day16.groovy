@@ -10,36 +10,24 @@ class Day16 extends Day {
 		List lines = Util.readFile(fileName)
 		Map rules = [:]
 		
-		int i = 0
-		for(i; i < lines.size(); i++) {
-			String line = lines[i]
-			if(line.trim().equals("")) {
-				i++
-				break
-			}
+		int i = -1
+		for(String line = lines[++i]; !line.trim().equals(""); line = lines[++i]) {
 			Map parsedRule = parseRule(line)
 			rules << parseRule(line)
 		}
 		
-		for(i; i < lines.size(); i++) {
-			String line = lines[i]
-			if(line.trim().equals("")) {
-				i++
-				break
-			}
-		}
+		for(String line = lines[++i]; !line.trim().equals(""); line = lines[++i]);
+		
 		int sum = 0
-		for(i; i < lines.size(); i++) {
-			String line = lines[i]
+		for(String line = lines[++i]; i < lines.size(); line = lines[++i]) {
 			if(line.trim().equals("nearby tickets:")) continue
 			List nums = line.split(",").collect {it as Integer}
 			
-			
-			nums.each { num ->
+			nums.each { int num ->
 				boolean validNum = false
 				
-				rules.each { k, v ->
-					v.each { rule ->
+				rules.each { String ruleName, List ruleParams ->
+					ruleParams.each { rule ->
 						if(num <= rule.max && num >= rule.min) {
 							validNum = true
 						}
@@ -72,41 +60,32 @@ class Day16 extends Day {
 		Map rules = [:]
 		List myTicket
 		
-		int i = 0
-		for(i; i < lines.size(); i++) {
-			String line = lines[i]
-			if(line.trim().equals("")) {
-				i++
-				break
-			}
+		int i = -1
+		for(String line = lines[++i]; !line.trim().equals(""); line = lines[++i]) {
 			Map parsedRule = parseRule(line)
 			rules << parseRule(line)
 		}
 		
-		for(i; i < lines.size(); i++) {
-			String line = lines[i]
+		for(String line = lines[++i]; !line.trim().equals(""); line = lines[++i]) {
 			if(line.trim().equals("your ticket:")) continue
-			if(line.trim().equals("")) {
-				i++
-				break
-			}
 			myTicket = line.split(",").collect {it as Integer}
 		}
+		
 		long product = 1
 		Map possibilities = [:]
-		for(i; i < lines.size(); i++) {
-			String line = lines[i]
+		
+		for(String line = lines[++i]; i < lines.size(); line = lines[++i]) {
 			if(line.trim().equals("nearby tickets:")) continue
 			List nums = line.split(",").collect {it as Integer}
 			
-			nums.eachWithIndex { num, idx ->
+			nums.eachWithIndex { int num, int idx ->
 				boolean validNum = false
 				Set possibilitesSet = []
-				rules.each { k, v ->
-					v.each { rule ->
+				rules.each { String ruleName, List ruleParams ->
+					ruleParams.each { rule ->
 						if(num <= rule.max && num >= rule.min) {
 							validNum = true
-							possibilitesSet << k
+							possibilitesSet << ruleName
 						}
 					}
 					if(validNum) return
@@ -131,7 +110,7 @@ class Day16 extends Day {
 				}
 			}
 			
-			if(possibilities.values().find { it.size() > 1 } == null) break
+			if(!possibilities.values().any { Set possibilitesSet -> possibilitesSet.size() > 1 }) break
 		}
 		
 		for(Map.Entry entry : possibilities) {

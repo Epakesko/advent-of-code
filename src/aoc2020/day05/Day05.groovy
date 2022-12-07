@@ -13,68 +13,49 @@ class Day05 extends Day {
 			int low = 0;
 			int high = 128;
 			for(int i = 0; i < 7; i++) {
-				char code = line.getAt(i);
 				int mid = (low + high)/2
-				if(code == 'B') {
-					low = mid
-				}
-				else {
-					high = mid
-				}
+				if(line.getAt(i) == 'B') low = mid
+				else high = mid
 			}
 			int row = low
 			low = 0
 			high = 8
 			for(int i = 7; i < 10; i++) {
-				char code = line.getAt(i);
 				int mid = (low + high)/2
-				if(code == 'R') {
-					low = mid
-				}
-				else {
-					high = mid
-				}
+				if(line.getAt(i) == 'R')  low = mid
+				else high = mid
 			}
 			int col = low
 			seats << row * 8 + col
 		}
-		return seats.max()
+		seats.max()
 	}
 
 	@Override
 	public Object calculateResult2(Object fileName) {
-				List lines = Util.readFile(fileName);
+		List lines = Util.readFile(fileName);
 		List seats = []
 		lines.each{ String line ->
 			int low = 0;
 			int high = 128;
 			for(int i = 0; i < 7; i++) {
-				char code = line.getAt(i);
 				int mid = (low + high)/2
-				if(code == 'B') {
-					low = mid
-				}
-				else {
-					high = mid
-				}
+				if(line.getAt(i) == 'B') low = mid
+				else high = mid
 			}
 			int row = low
 			low = 0
 			high = 8
 			for(int i = 7; i < 10; i++) {
-				char code = line.getAt(i);
 				int mid = (low + high)/2
-				if(code == 'R') {
-					low = mid
-				}
-				else {
-					high = mid
-				}
+				if(line.getAt(i) == 'R')  low = mid
+				else high = mid
 			}
 			int col = low
 			seats << row * 8 + col
 		}
-		seats.sort()
-		return seats
+		seats.sort().find {
+			!seats.contains(it+1)
+		} + 1
 	}
 }

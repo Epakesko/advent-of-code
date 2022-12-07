@@ -50,24 +50,12 @@ class Day12 extends Day {
 					case Dir.WEST: east -= param; break;
 				}
 			}
-			else if (command == 'N') {
-				north += param
-			}
-			else if (command == 'S') {
-				north -= param
-			}
-			else if (command == 'E') {
-				east += param
-			}
-			else if (command == 'W') {
-				east -= param
-			}
-			else if (command == 'L') {
-				dir = dir.rotate(-param)
-			}
-			else if (command == 'R') {
-				dir = dir.rotate(param)
-			}
+			else if (command == 'N') north += param
+			else if (command == 'S') north -= param
+			else if (command == 'E') east += param
+			else if (command == 'W') east -= param
+			else if (command == 'L') dir = dir.rotate(-param)
+			else if (command == 'R') dir = dir.rotate(param)
 		}
 		
 		return Math.abs(east) + Math.abs(north)
@@ -90,18 +78,10 @@ class Day12 extends Day {
 				east += param * wpEast
 				north += param * wpNorth
 			}
-			else if (command == 'N') {
-				wpNorth += param
-			}
-			else if (command == 'S') {
-				wpNorth -= param
-			}
-			else if (command == 'E') {
-				wpEast += param
-			}
-			else if (command == 'W') {
-				wpEast -= param
-			}
+			else if (command == 'N') wpNorth += param
+			else if (command == 'S') wpNorth -= param
+			else if (command == 'E') wpEast += param
+			else if (command == 'W') wpEast -= param
 			else if (command == 'L') {
 				(param/90).times { 
 					int temp = wpEast

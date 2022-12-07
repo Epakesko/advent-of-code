@@ -4,25 +4,27 @@ import aoc2020.Day
 import aoc2020.common.Util
 
 class Day09 extends Day {
-
+	final static int PREAMBLE_NUM = 25
+	final static int FIRST_PART_ANSWER = 29221323
+	
 	@Override
 	public Object calculateResult(Object fileName) {
-		List lines = Util.readFile(fileName)
+		List lines = Util.readFileAsLongs(fileName)
 		
-		int preambleNum = 25
 		List preamble = []
-		for(int i = 0; i < preambleNum; i++) {
-			preamble << (lines[i] as Integer)
+		for(int i = 0; i < PREAMBLE_NUM; i++) {
+			preamble << lines[i]
 		}
 		
-		for(int i = preambleNum; i < lines.size(); i++) {
-			int inspectedNum = (lines[i] as Integer)
+		for(int i = PREAMBLE_NUM; i < lines.size(); i++) {
+			int inspectedNum = lines[i]
 			boolean weak = true
-			for(int j = 0; j < preambleNum; j++) {
-				int num = preamble[j]
-				int diff = inspectedNum - num
+			for(int j = 0; j < PREAMBLE_NUM; j++) {
+				long num = preamble[j]
+				long diff = inspectedNum - num
 				if(diff != num && preamble.contains(diff)) {
 					weak = false
+					break
 				}
 			}
 			if(weak) return inspectedNum
@@ -31,24 +33,18 @@ class Day09 extends Day {
 				preamble << inspectedNum
 			} 
 		}
-		return -1
 	}
 
 	@Override
 	public Object calculateResult2(Object fileName) {
-		List lines = Util.readFile(fileName)
-		List nums = lines.collect {
-			it as Long
-		}
+		List nums = Util.readFileAsLongs(fileName)
 		int lo = 0
 		int hi = 1
 		
-		int searchingFor = 29221323
-		
 		while(true) {
 			long sumFromTo = nums.subList(lo, hi).sum()
-			if(sumFromTo < searchingFor) hi++
-			else if(sumFromTo > searchingFor) lo++
+			if(sumFromTo < FIRST_PART_ANSWER) hi++
+			else if(sumFromTo > FIRST_PART_ANSWER) lo++
 			else return nums.subList(lo, hi).min() + nums.subList(lo, hi).max()
 		}
 	}

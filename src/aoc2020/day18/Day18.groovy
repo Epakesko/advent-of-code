@@ -36,7 +36,7 @@ class Day18 extends Day {
 		for(int i = 0; i < line.length(); i++) {
 			String c = line.getAt(i)
 			if(c == "(") {
-				int closingParanthesisIdx = i + findClosingParanthesis(line, i+1)
+				int closingParanthesisIdx = i + findClosingParanthesis(line.substring(i+1))
 				result = parseSubstring(line.substring(i+1, closingParanthesisIdx+1))
 				i = closingParanthesisIdx+1
 				if(leftOperand == null) leftOperand = result
@@ -59,8 +59,7 @@ class Day18 extends Day {
 		leftOperand
 	}
 	
-	int findClosingParanthesis(String line, int fromIdx) {
-		line = line.substring(fromIdx)
+	int findClosingParanthesis(String line) {
 		int openParanthesises = 1
 		int idx = 0
 		for(char c : line) {
@@ -77,10 +76,9 @@ class Day18 extends Day {
 		idx
 	}
 	
-	int findOpeningParanthesis(String line, int fromIdx) {
-		line = line.substring(0, fromIdx+1)
+	int findOpeningParanthesis(String line) {
 		int openParanthesises = 1
-		for(int i = fromIdx; i >= 0; i--) {
+		for(int i = line.size()-1; i >= 0; i--) {
 			String c = line.getAt(i)
 			if(c == '(') {
 				openParanthesises--
@@ -89,7 +87,7 @@ class Day18 extends Day {
 				openParanthesises++
 			}
 			if(openParanthesises == 0) {
-				return fromIdx - i
+				return i
 			}
 		}
 	}
@@ -119,14 +117,14 @@ class Day18 extends Day {
 	int findRightOperandEnd(String line, int idx){
 		if(line.getAt(idx+2) != '(') return idx + 3
 		else{
-			return idx + 3 + findClosingParanthesis(line, idx+3)
+			return idx + 3 + findClosingParanthesis(line.substring(idx + 3))
 		}
 	}
 	
 	int findLeftOperandStart(String line, int idx){
 		if(line.getAt(idx-2) != ')') return idx - 2
 		else{
-			return idx - 3 - findOpeningParanthesis(line, idx-3)
+			return findOpeningParanthesis(line.substring(0, idx - 2))
 		}
 	}
 }

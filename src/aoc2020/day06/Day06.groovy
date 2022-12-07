@@ -7,29 +7,24 @@ class Day06 extends Day {
 
 	@Override
 	public Object calculateResult(Object fileName) {
-		def list = Util.readFile(fileName)
-		def groups = []
+		List list = Util.readFile(fileName)
+		List groups = []
 		int groupIndex = 0
 		list.each { String line ->
 			if(line == "") {
 				groupIndex++
 				return
 			}
-			if(groups[groupIndex] == null) {
-				Set newSet = []
-				groups << newSet
-			}
-			for(char c : line) {
-				groups[groupIndex] << c
-			}	
+			if(groups[groupIndex] == null) groups << ([] as Set)
+			for(char c : line) groups[groupIndex] << c
 		}
-		groups.sum { it.size() }
+		groups.sum { Set set -> set.size() }
 	}
 
 	@Override
 	public Object calculateResult2(Object fileName) {
-		def list = Util.readFile(fileName)
-		def groups = []
+		List list = Util.readFile(fileName)
+		List groups = []
 		int groupIndex = 0
 		boolean newGroupStart = true
 		list.each { String line ->
@@ -38,22 +33,15 @@ class Day06 extends Day {
 				newGroupStart = true
 				return
 			}
-			if(groups[groupIndex] == null) {
-				Set newSet = []
-				groups << newSet
-			}
+			if(groups[groupIndex] == null) groups << ([] as Set)
+			
 			Set lineSet = []
-			for(char c : line) {
-				lineSet << c
-			}
-			if(newGroupStart) {
-				groups[groupIndex] = lineSet
-			}
-			else {
-				groups[groupIndex] = groups[groupIndex].intersect(lineSet)
-			}
+			for(char c : line) lineSet << c
+			
+			if(newGroupStart) groups[groupIndex] = lineSet
+			else groups[groupIndex] = groups[groupIndex].intersect(lineSet)
 			newGroupStart = false
 		}
-		groups.sum { it.size() }
+		groups.sum { Set set -> set.size() }
 	}
 }

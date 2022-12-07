@@ -80,6 +80,6 @@ class Day07 extends Day {
 		possibleChildren[bag].each { Map childBag ->
 			numberOfChildren += childBag["numberOfBags"] + childBag["numberOfBags"] * getNumberOfChildren(childBag["childName"], possibleChildren)
 		}
-		return numberOfChildren
+		numberOfChildren
 	}
 }

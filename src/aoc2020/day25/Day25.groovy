@@ -5,6 +5,8 @@ import aoc2020.common.Util
 
 class Day25 extends Day {
 
+	static final long DIVISOR = 20201227
+	
 	@Override
 	public Object calculateResult(Object fileName) {
 		List lines = Util.readFile(fileName)
@@ -13,12 +15,11 @@ class Day25 extends Day {
 		
 		BigInteger subjectNumber = 1
 		BigInteger subjectNumberBase = 7
-		long divisor = 20201227
 		
 		int loopSize = 0
 		while(subjectNumber != cardKey) {
 			subjectNumber *= subjectNumberBase
-			subjectNumber %= divisor
+			subjectNumber %= DIVISOR
 			loopSize++
 		}
 		
@@ -26,7 +27,7 @@ class Day25 extends Day {
 		subjectNumberBase = lines[1] as Long
 		loopSize.times {
 			subjectNumber *= subjectNumberBase
-			subjectNumber %= divisor
+			subjectNumber %= DIVISOR
 		}
 		
 		subjectNumber
@@ -34,7 +35,6 @@ class Day25 extends Day {
 
 	@Override
 	public Object calculateResult2(Object fileName) {
-		// TODO Auto-generated method stub
-		return null
+		":)"
 	}
 }

@@ -4,8 +4,6 @@ import aoc2020.Day
 import aoc2020.common.Util
 
 class Day19 extends Day {
-
-	int i = 0
 	
 	@Override
 	public Object calculateResult(Object fileName) {
@@ -23,9 +21,9 @@ class Day19 extends Day {
 		String mainRule = getRuleRegex(0, ruleMap)
 		List codes = lines.subList(i, lines.size())
 		
-		codes.findAll { code ->
+		codes.count { code ->
 			code ==~ mainRule
-		}.size()
+		}
 	}
 
 	String getRuleRegex(int ruleNum, Map rules) {
@@ -60,14 +58,13 @@ class Day19 extends Day {
 			}
 		}
 		if(ruleNum == 8) return regexString + ")+"
-		if(ruleNum == 42 && parentRule == 11) return regexString + "){x}"
-		if(ruleNum == 31 && parentRule == 11) return regexString + "){x}"
+		if(parentRule == 11) return regexString + "){x}"
 		return regexString + ")"
 	}
 	
 	@Override
 	public Object calculateResult2(Object fileName) {
-				List lines = Util.readFile(fileName)
+		List lines = Util.readFile(fileName)
 		
 		Map ruleMap = [:]
 		int i = 0
@@ -82,7 +79,7 @@ class Day19 extends Day {
 
 		List codes = lines.subList(i, lines.size())
 		
-		codes.findAll { code ->
+		codes.count { code ->
 			boolean found = false
 			for(int idx = 1; idx < 44; idx++) {
 				if(code ==~ mainRule.replace("x", "$idx")) {
@@ -91,6 +88,6 @@ class Day19 extends Day {
 				}
 			}
 			found
-		}.size()
+		}
 	}
 }

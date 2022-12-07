@@ -12,24 +12,18 @@ class Day22 extends Day {
 		List player1Deck = []
 		List player2Deck = []
 		
-		int i = 0
-		for(String line = lines[i]; line.trim() != ""; line = lines[++i]) {
+		int i = -1
+		for(String line = lines[++i]; line.trim() != ""; line = lines[++i]) {
 			if(line.startsWith("Player")) continue
 			
 			player1Deck << (line as Integer)
 		}
 		
-		i++
-		
-		for(String line = lines[i]; i < lines.size(); line = lines[++i]) {
+		for(String line = lines[++i]; i < lines.size(); line = lines[++i]) {
 			if(line.startsWith("Player")) continue
 			
 			player2Deck << (line as Integer)
 		}
-		
-		println player1Deck
-		println player2Deck
-		println ""
 		
 		while(player1Deck.size() && player2Deck.size()) {
 			int player1Card = player1Deck[0]
@@ -47,12 +41,8 @@ class Day22 extends Day {
 				player2Deck << player1Card
 			}
 			else {
-				println "uh oh... its a draw?"
+				println "Panik?"
 			}
-			
-			println player1Deck
-			println player2Deck
-			println ""
 		}
 		List winner = player1Deck
 		if(winner.isEmpty()) winner = player2Deck
@@ -65,27 +55,25 @@ class Day22 extends Day {
 
 	@Override
 	public Object calculateResult2(Object fileName) {
-				List lines = Util.readFile(fileName)
+		List lines = Util.readFile(fileName)
 		
 		List player1Deck = []
 		List player2Deck = []
 		
-		int i = 0
-		for(String line = lines[i]; line.trim() != ""; line = lines[++i]) {
+		int i = -1
+		for(String line = lines[++i]; line.trim() != ""; line = lines[++i]) {
 			if(line.startsWith("Player")) continue
 			
 			player1Deck << (line as Integer)
 		}
 		
-		i++
-		
-		for(String line = lines[i]; i < lines.size(); line = lines[++i]) {
+		for(String line = lines[++i]; i < lines.size(); line = lines[++i]) {
 			if(line.startsWith("Player")) continue
 			
 			player2Deck << (line as Integer)
 		}
 		
-		List winner = playSubgame(player1Deck, player2Deck, 1) [1]
+		List winner = playSubgame(player1Deck, player2Deck) [1]
 		
 		int sum = 0
 		for(int idx = 0; idx < winner.size(); idx++) {
@@ -94,15 +82,13 @@ class Day22 extends Day {
 		sum
 	}
 	
-	List playSubgame(List player1Deck, List player2Deck, depth) {
-		println "starting subgame on depth ${depth}"
+	List playSubgame(List player1Deck, List player2Deck) {
 		List previousTurns = []
 		while(player1Deck.size() && player2Deck.size()) {
-			String thisTurn = player1Deck.join("") + ", " + player2Deck.join("")
+			String thisTurn = player1Deck.join(",") + " " + player2Deck.join(",")
 			if(previousTurns.contains(thisTurn)){
 				return [1, player1Deck]
 			}
-			
 			
 			int player1Card = player1Deck[0]
 			int player2Card = player2Deck[0]
@@ -130,7 +116,7 @@ class Day22 extends Day {
 					deckCopy2 << it
 				}
 				
-				List result = playSubgame(deckCopy1, deckCopy2, depth+1)
+				List result = playSubgame(deckCopy1, deckCopy2)
 				if(result[0] == 1) {
 					player1Deck << player1Card
 					player1Deck << player2Card
@@ -142,10 +128,6 @@ class Day22 extends Day {
 			}
 
 			previousTurns << thisTurn
-			
-			//println player1Deck
-			//println player2Deck
-			//println ""
 		}
 		List winner = player1Deck
 		int winnerNum = 1
@@ -154,7 +136,6 @@ class Day22 extends Day {
 			winnerNum = 2
 		}
 		
-		println "finishing subgame on depth $depth, winner: $winnerNum, deck: $winner"
 		return [winnerNum, winner]
 	}
 }

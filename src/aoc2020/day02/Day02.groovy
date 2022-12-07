@@ -7,10 +7,9 @@ public class Day02 extends Day {
 
 	@Override
 	public Object calculateResult(Object fileName) {
-		def lineList = Util.readFile(fileName)
-		def alma = []
-		def valid = 0
-		lineList.each { String line ->
+		List lineList = Util.readFile(fileName)
+		
+		lineList.count { String line ->
 			int hyphenIndex = line.indexOf("-")
 			int spaceIndex = line.indexOf(" ")
 			int secondSpaceIndex = line.indexOf(" ", spaceIndex+1)
@@ -18,17 +17,16 @@ public class Day02 extends Day {
 			int max = line.substring(hyphenIndex + 1, spaceIndex) as Integer
 			CharSequence searchedChar = line.getAt(spaceIndex + 1)
 			String pw = line.substring(secondSpaceIndex + 1)
-			if(min <= pw.count(searchedChar) && pw.count(searchedChar) <= max) valid++
+			
+			min <= pw.count(searchedChar) && pw.count(searchedChar) <= max
 		}
-		return valid;
 	}
 
 	@Override
 	public Object calculateResult2(Object fileName) {
-		def lineList = Util.readFile(fileName)
-		def alma = []
-		def valid = 0
-		lineList.each { String line ->
+		List lineList = Util.readFile(fileName)
+		
+		lineList.count { String line ->
 			int hyphenIndex = line.indexOf("-")
 			int spaceIndex = line.indexOf(" ")
 			int secondSpaceIndex = line.indexOf(" ", spaceIndex+1)
@@ -36,9 +34,8 @@ public class Day02 extends Day {
 			int secondPos = line.substring(hyphenIndex + 1, spaceIndex) as Integer
 			CharSequence searchedChar = line.getAt(spaceIndex + 1)
 			String pw = line.substring(secondSpaceIndex + 1)
-			if((pw.getAt(firstPos-1) == searchedChar) != (pw.getAt(secondPos-1) == searchedChar)) valid++
+			(pw.getAt(firstPos-1) == searchedChar) != (pw.getAt(secondPos-1) == searchedChar)
 		}
-		return valid;
 	}
 	
 }

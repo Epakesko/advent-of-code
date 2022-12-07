@@ -4,7 +4,6 @@ public class Util {
 	
 	def static readFile(fileName) {
 		File file = new File(fileName)
-		println file.getAbsolutePath()
 		return file.readLines()
 	}
 	
@@ -12,6 +11,13 @@ public class Util {
 		List lines = readFile(fileName)
 		lines.collect {
 			it as Integer
+		}
+	}
+	
+	def static readFileAsLongs(fileName) {
+		List lines = readFile(fileName)
+		lines.collect {
+			it as Long
 		}
 	}
 }

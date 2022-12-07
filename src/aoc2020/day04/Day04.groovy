@@ -9,10 +9,10 @@ class Day04 extends Day {
 	public Object calculateResult(Object fileName) {
 		List requiredKeys = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
 		
-		def list = Util.readFile(fileName)
-		def passwords = []
+		List list = Util.readFile(fileName)
+		List passwords = []
 		int passwordIndex = 0
-		list.each { line ->
+		list.each { String line ->
 			if(line == "") {
 				passwordIndex++
 				return
@@ -30,22 +30,14 @@ class Day04 extends Day {
 			}
 		}
 		
-		int valid = 0
-		
-		passwords.each { Map passwordElements ->
-			boolean validPw = true
-			requiredKeys.each{ key ->
-				if(!passwordElements.containsKey(key)) validPw = false
-			}
-			if(validPw) valid++
+		passwords.count { Map passwordElements ->
+			!requiredKeys.find{ key -> !passwordElements.containsKey(key)}
 		}
-		
-		return valid
 	}
 
 	@Override
 	public Object calculateResult2(Object fileName) {
-				List requiredKeys = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
+		List requiredKeys = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
 		
 		def list = Util.readFile(fileName)
 		def passwords = []
@@ -68,16 +60,10 @@ class Day04 extends Day {
 			}
 		}
 		
-		int valid = 0
-		
-		passwords.each { Map passwordElements ->
-			print (" " + isByrValid(passwordElements["byr"]) + " " + isIyrValid(passwordElements["iyr"]) + " " + isEyrValid(passwordElements["eyr"]) + " " +
-				isHgtValid(passwordElements["hgt"]) + " " + isHclValid(passwordElements["hcl"]) + " " + isEclValid(passwordElements["ecl"]) + " " + isPidValid(passwordElements["pid"]) + "\n")
-			if(isByrValid(passwordElements["byr"]) && isIyrValid(passwordElements["iyr"]) && isEyrValid(passwordElements["eyr"])&&
-				isHgtValid(passwordElements["hgt"]) && isHclValid(passwordElements["hcl"]) && isEclValid(passwordElements["ecl"]) && isPidValid(passwordElements["pid"])) valid++
+		passwords.count { Map passwordElements ->
+			isByrValid(passwordElements["byr"]) && isIyrValid(passwordElements["iyr"]) && isEyrValid(passwordElements["eyr"])&&
+				isHgtValid(passwordElements["hgt"]) && isHclValid(passwordElements["hcl"]) && isEclValid(passwordElements["ecl"]) && isPidValid(passwordElements["pid"])
 		}
-		
-		return valid
 	}
 	
 	private boolean isByrValid(String byr) {
