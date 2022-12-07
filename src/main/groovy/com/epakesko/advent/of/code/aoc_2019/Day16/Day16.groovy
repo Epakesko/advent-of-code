@@ -8,7 +8,7 @@ import java.awt.Point
 class Day16 extends Day {
 	
 	@Override
-	public Object calculateResult(Object fileName) {
+	public Object calculateResult(Object fileName) {	
 		String input = Util.readFile(fileName)[0]
 		List inputNumbers = input.split("").collect { it as Integer }
 		
