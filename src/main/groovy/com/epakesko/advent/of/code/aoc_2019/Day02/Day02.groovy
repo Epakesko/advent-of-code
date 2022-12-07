@@ -1,10 +1,10 @@
-package aoc2019.day1902
+package com.epakesko.advent.of.code.aoc_2019.Day02
 
-import aoc2019.Day2019
-import aoc2019.IntCode
-import aoc2020.common.Util
+import com.epakesko.advent.of.code.aoc_2019.util.IntCode
+import com.epakesko.advent.of.code.common.Util
+import com.epakesko.advent.of.code.day.Day
 
-class Day1902 extends Day2019 {
+class Day02 extends Day {
 
 	@Override
 	public Object calculateResult(Object fileName) {

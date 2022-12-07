@@ -1,9 +1,9 @@
-package aoc2019.day1901
+package com.epakesko.advent.of.code.aoc_2019.Day01
 
-import aoc2019.Day2019
-import aoc2020.common.Util
+import com.epakesko.advent.of.code.common.Util
+import com.epakesko.advent.of.code.day.Day
 
-class Day1901 extends Day2019 {
+class Day01 extends Day {
 
 	@Override
 	public Object calculateResult(Object fileName) {
@@ -11,7 +11,6 @@ class Day1901 extends Day2019 {
 		
 		masses.collect { Math.floor(it / 3) - 2 }.sum()
 	}
-
 	
 	@Override
 	public Object calculateResult2(Object fileName) {

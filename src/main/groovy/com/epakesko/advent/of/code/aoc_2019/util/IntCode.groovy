@@ -1,6 +1,6 @@
-package aoc2019
+package com.epakesko.advent.of.code.aoc_2019.util
 
-import aoc2020.common.Util
+import com.epakesko.advent.of.code.common.Util
 
 class IntCode {
 	int pointer = 0
