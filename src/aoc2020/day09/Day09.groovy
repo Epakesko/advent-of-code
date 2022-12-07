@@ -17,7 +17,7 @@ class Day09 extends Day {
 		}
 		
 		for(int i = PREAMBLE_NUM; i < lines.size(); i++) {
-			int inspectedNum = lines[i]
+			long inspectedNum = lines[i]
 			boolean weak = true
 			for(int j = 0; j < PREAMBLE_NUM; j++) {
 				long num = preamble[j]
