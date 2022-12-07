@@ -13,6 +13,7 @@ class IntCode {
 	
 	public IntCode(fileName) {
 		Util.readFile(fileName)[0].split(",").collect{ it as Long }.eachWithIndex { elem, idx -> memory.put(idx as Long, elem)}
+		this.input = []
 	}
 	
 	public IntCode(fileName, input) {
@@ -53,19 +54,20 @@ class IntCode {
 	}
 	
 	def runUntilInput() {
-		
-		Instruction instruction = createInstruction(pointer)
 		output = []
+		Instruction instruction = createInstruction(pointer)
+		def instructionResult = instruction.runInstruction();
+		pointer += instruction.parameters.size() + 1
+		instruction = createInstruction(pointer)
 		
-		while(!(instruction instanceof StopInstruction)) {
-			def instructionResult = instruction.runInstruction();
-			
+		
+		while(!(instruction instanceof StopInstruction || instruction instanceof InputInstruction)) {
+			instructionResult = instruction.runInstruction();
 			pointer += instruction.parameters.size() + 1
-			if(instruction instanceof OutputInstruction) break;
-			
 			instruction = createInstruction(pointer)
 		}
-		return output[0]
+		
+		return output.join(", ")
 	}
 	
 	def addInput(int input) {
