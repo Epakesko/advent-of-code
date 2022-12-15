@@ -12,8 +12,8 @@ day = sys.argv[1]
 # Create a new folder
 day_name = "day" + day.zfill(2)
 os.mkdir(day_name)
-
-response = requests.get(base_url + day_name + "/input", headers=headers, cookies=cookies)
+print(base_url + day.zfill(2) + "/input")
+response = requests.get(base_url + day + "/input", headers=headers, cookies=cookies)
 with open(os.path.join(day_name, "input.txt"), "w") as f:
     f.write(response.text)
 
@@ -28,10 +28,10 @@ with open("main.py", "r") as f:
     main = f.read()
 
 # Replace "old_line_1" with "new_line_1"
-main = re.sub(r"(days = \[.*)(\] #SOLVED DAYS)", r"\1,{} \2".format(day_name), main)
+main = re.sub(r"(days = \[.*)(\] #SOLVED DAYS)", r"\1, {}\2".format(day_name), main)
 
 # Replace "old_line_2" with "new_line_2"
-main = re.sub(r"(#RUN DAYS)", r"case \"{}\":\n    runDay({}.sol, True\n\1)".format(day, day_name), main)
+main = re.sub(r"(#RUN DAYS)", r'case "{}":\n            runDay({}.sol, True\n        \1)'.format(day, day_name), main)
 
 with open("main.py", "w") as f:
     f.write(main)
