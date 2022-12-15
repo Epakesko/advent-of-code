@@ -3,6 +3,7 @@ import sys
 import time
 import day01.sol
 import day02.sol
+#IMPORT DAYS
 
 days = [day01, day02] #SOLVED DAYS
 

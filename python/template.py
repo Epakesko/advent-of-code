@@ -4,6 +4,8 @@ sys.path.append("..")
 from util import readLines
 lines = readLines(__file__)
 
+name = #NAME
+
 def part1():
     return -1
 
