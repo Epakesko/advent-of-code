@@ -10,6 +10,7 @@ import com.epakesko.advent.of.code.aoc_2022.day07.Day07
 import com.epakesko.advent.of.code.aoc_2022.day08.Day08
 import com.epakesko.advent.of.code.aoc_2022.day09.Day09
 import com.epakesko.advent.of.code.aoc_2022.day10.Day10
+import com.epakesko.advent.of.code.aoc_2022.day12.Day12
 import com.epakesko.advent.of.code.aoc_2022.day13.Day13
 import com.epakesko.advent.of.code.day.Day
 import com.epakesko.advent.of.code.day.DayFactory
@@ -58,6 +59,7 @@ class DayFactory2022 implements DayFactory {
 				return new Day10();
 			case "11":
 			case "12":
+				return new Day12();
 			case "13":
 				return new Day13();
 			case "14":
