@@ -12,6 +12,7 @@ import com.epakesko.advent.of.code.aoc_2022.day09.Day09
 import com.epakesko.advent.of.code.aoc_2022.day10.Day10
 import com.epakesko.advent.of.code.aoc_2022.day11.Day11
 import com.epakesko.advent.of.code.aoc_2022.day13.Day13
+import com.epakesko.advent.of.code.aoc_2022.day14.Day14
 import com.epakesko.advent.of.code.day.Day
 import com.epakesko.advent.of.code.day.DayFactory
 import com.epakesko.advent.of.code.exception.NonExistentDayException
@@ -63,6 +64,7 @@ class DayFactory2022 implements DayFactory {
 			case "13":
 				return new Day13();
 			case "14":
+				return new Day14();
 			case "15":
 			case "16":
 			case "17":
