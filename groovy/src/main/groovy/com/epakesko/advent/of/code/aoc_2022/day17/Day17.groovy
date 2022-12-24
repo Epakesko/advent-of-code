@@ -164,33 +164,87 @@ public class Day17 extends Day{
 		}
 		
 		int i = 0
-		2022.times { 
+		5000.times {
+			//if(it % 1705 == 0) println top
+			//if(it == (1585 + 1705)) println top
 			int x = 2
 			int y = top + 4
 			Shape s = Shape.values()[it % 5]
 			Piece p = new Piece(s, x, y)
+			//if(s == Shape.HORIZONTAL && i == 0) println "$it $top"
 			boolean falling = false
 			boolean moving = true
 			while(moving) {
-				//if(it == 8) println "$p.x $p.y"
 				if(falling) {
 					moving = p.fall(floor)
+					if(s == Shape.HORIZONTAL) System.out.print(moving? "v" : "#")
 					falling = !falling
 				}
 				else {
-					p.wind(wind.charAt(i++), floor)
+					boolean a = p.wind(wind.charAt(i++), floor)
+					if(s == Shape.HORIZONTAL) System.out.print(a? wind.charAt(i - 1) : "|")
 					falling = !falling
 					if(i == windSize) i = 0
 				}
 			}
+			if(s == Shape.HORIZONTAL) println " $top"
 		}
 		//println floor
 		top
+		/*
+		for(int j = top; j >=0; j--) {
+			floor.each { it ->
+				System.out.print(it.contains(j) ? "#" : ".")
+			}
+			println ""
+		}
+		*/
 	}
 	
 	@Override
 	def calculateResult2(fileName) {
+		return -1
 		List<String> lines = Util.readFile(fileName)
-		-1
+		String wind = lines[0]
+		int windSize = wind.size()
+		
+		List<Set<Integer>> floor = new ArrayList<>()
+		7.times { 
+			Set start = new HashSet<>()
+			start.add(0)
+			floor.add(start)
+		}
+		
+		int i = 0
+		int j = 0
+		String firstPath
+		List<Integer> tops = new ArrayList<>()
+		while(true) {
+			int x = 2
+			int y = top + 4
+			Shape s = Shape.values()[j++ % 5]
+			Piece p = new Piece(s, x, y)
+			boolean falling = false
+			boolean moving = true
+			String path
+			while(moving) {
+				if(falling) {
+					moving = p.fall(floor)
+					if(s == Shape.HORIZONTAL) path += moving? "v" : "#"
+					falling = !falling
+				}
+				else {
+					boolean a = p.wind(wind.charAt(i++), floor)
+					if(s == Shape.HORIZONTAL) path += a ? wind.charAt(i - 1) : "|"
+					falling = !falling
+					if(i == windSize) i = 0
+				}
+			}
+			if(s == Shape.HORIZONTAL) {
+				if(j == 0) firstPath = path
+				else if(path.equals(firstPath)) break
+			}
+		}
+		top
 	}
 }

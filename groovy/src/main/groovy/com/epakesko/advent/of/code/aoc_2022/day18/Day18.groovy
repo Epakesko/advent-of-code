@@ -11,6 +11,7 @@ public class Day18 extends Day{
 	
 	@Override
 	def calculateResult(fileName){
+		return -1
 		List<String> lines = Util.readFile(fileName)
 		Set<String> cubes = new HashSet<>()
 		lines.sum { line ->
@@ -63,50 +64,116 @@ public class Day18 extends Day{
 		
 		List<Face> getNeighbors(Set<String> cubes) {
 			List<Face> n = new ArrayList<>()
-			switch(DIR) {
+			switch(dir) {
 				case Face.DIR.UP:
-					[Face.DIR.LEFT, Face.DIR.IN, Face.DIR.RIGHT, Face.DIR.OUT].each {
-						String neighborCubeString = getNeighborCubeString(x, y+1, z, it)
-						if(cubes.contains(neighborCubeString)) n.add(new Face(x, y+1, z, it))
-					}
+					if(cubes.contains("${x-1},${y+1},${z}")) n.add(new Face(x-1, y+1, z, DIR.RIGHT))
+					else if(cubes.contains("${x-1},${y},${z}")) n.add(new Face(x-1, y, z, dir))
+					else n.add(new Face(x, y, z, DIR.LEFT))
+						
+					if(cubes.contains("${x+1},${y+1},${z}")) n.add(new Face(x+1, y+1, z, DIR.LEFT))
+					else if(cubes.contains("${x+1},${y},${z}")) n.add(new Face(x+1, y, z, dir))
+					else n.add(new Face(x, y, z, DIR.RIGHT))
+						
+					if(cubes.contains("${x},${y+1},${z+1}")) n.add(new Face(x, y+1, z+1, DIR.OUT))
+					else if(cubes.contains("${x},${y},${z+1}")) n.add(new Face(x, y, z+1, dir))
+					else n.add(new Face(x, y, z, DIR.IN))
+						
+					if(cubes.contains("${x},${y+1},${z-1}")) n.add(new Face(x, y+1, z-1, DIR.IN))
+					else if(cubes.contains("${x},${y},${z-1}")) n.add(new Face(x, y, z-1, dir))
+					else n.add(new Face(x, y, z, DIR.OUT))
+					break
+						
 				case Face.DIR.DOWN:
-					[Face.DIR.LEFT, Face.DIR.IN, Face.DIR.RIGHT, Face.DIR.OUT].each {
-						String neighborCubeString = getNeighborCubeString(x, y-1, z, it)
-						if(cubes.contains(neighborCubeString)) n.add(new Face(x, y-1, z, it))
-					}
+					if(cubes.contains("${x-1},${y-1},${z}")) n.add(new Face(x-1, y-1, z, DIR.RIGHT))
+					else if(cubes.contains("${x-1},${y},${z}")) n.add(new Face(x-1, y, z, dir))
+					else n.add(new Face(x, y, z, DIR.LEFT))
+						
+					if(cubes.contains("${x+1},${y-1},${z}")) n.add(new Face(x+1, y-1, z, DIR.LEFT))
+					else if(cubes.contains("${x+1},${y},${z}")) n.add(new Face(x+1, y, z, dir))
+					else n.add(new Face(x, y, z, DIR.RIGHT))
+						
+					if(cubes.contains("${x},${y-1},${z+1}")) n.add(new Face(x, y-1, z+1, DIR.OUT))
+					else if(cubes.contains("${x},${y},${z+1}")) n.add(new Face(x, y, z+1, dir))
+					else n.add(new Face(x, y, z, DIR.IN))
+						
+					if(cubes.contains("${x},${y-1},${z-1}")) n.add(new Face(x, y-1, z-1, DIR.IN))
+					else if(cubes.contains("${x},${y},${z-1}")) n.add(new Face(x, y, z-1, dir))
+					else n.add(new Face(x, y, z, DIR.OUT))
+					break
+						
 				case Face.DIR.LEFT:
-					[Face.DIR.UP, Face.DIR.IN, Face.DIR.DOWN, Face.DIR.OUT].each {
-						String neighborCubeString = getNeighborCubeString(x-1, y, z, it)
-						if(cubes.contains(neighborCubeString)) n.add(new Face(x-1, y, z, it))
-					}
+					if(cubes.contains("${x-1},${y+1},${z}")) n.add(new Face(x-1, y+1, z, DIR.DOWN))
+					else if(cubes.contains("${x},${y+1},${z}")) n.add(new Face(x, y+1, z, dir))
+					else n.add(new Face(x, y, z, DIR.UP))
+						
+					if(cubes.contains("${x-1},${y-1},${z}")) n.add(new Face(x-1, y-1, z, DIR.UP))
+					else if(cubes.contains("${x},${y-1},${z}")) n.add(new Face(x, y-1, z, dir))
+					else n.add(new Face(x, y, z, DIR.DOWN))
+						
+					if(cubes.contains("${x-1},${y},${z+1}")) n.add(new Face(x-1, y, z+1, DIR.IN))
+					else if(cubes.contains("${x},${y},${z+1}")) n.add(new Face(x, y, z+1, dir))
+					else n.add(new Face(x, y, z, DIR.OUT))
+						
+					if(cubes.contains("${x-1},${y},${z-1}")) n.add(new Face(x-1, y, z-1, DIR.OUT))
+					else if(cubes.contains("${x},${y},${z-1}")) n.add(new Face(x, y, z-1, dir))
+					else n.add(new Face(x, y, z, DIR.IN))
+					break
+						
 				case Face.DIR.RIGHT:
-					[Face.DIR.UP, Face.DIR.IN, Face.DIR.DOWN, Face.DIR.OUT].each {
-						String neighborCubeString = getNeighborCubeString(x+1, y, z, it)
-						if(cubes.contains(neighborCubeString)) n.add(new Face(x+1, y, z, it))
-					}
+					if(cubes.contains("${x+1},${y+1},${z}")) n.add(new Face(x+1, y+1, z, DIR.DOWN))
+					else if(cubes.contains("${x},${y+1},${z}")) n.add(new Face(x, y+1, z, dir))
+					else n.add(new Face(x, y, z, DIR.UP))
+						
+					if(cubes.contains("${x+1},${y-1},${z}")) n.add(new Face(x+1, y-1, z, DIR.UP))
+					else if(cubes.contains("${x},${y-1},${z}")) n.add(new Face(x, y-1, z, dir))
+					else n.add(new Face(x, y, z, DIR.DOWN))
+						
+					if(cubes.contains("${x+1},${y},${z+1}")) n.add(new Face(x+1, y, z+1, DIR.IN))
+					else if(cubes.contains("${x},${y},${z+1}")) n.add(new Face(x, y, z+1, dir))
+					else n.add(new Face(x, y, z, DIR.OUT))
+						
+					if(cubes.contains("${x+1},${y},${z-1}")) n.add(new Face(x+1, y, z-1, DIR.OUT))
+					else if(cubes.contains("${x},${y},${z-1}")) n.add(new Face(x, y, z-1, dir))
+					else n.add(new Face(x, y, z, DIR.IN))
+					break
+						
 				case Face.DIR.IN:
-					[Face.DIR.LEFT, Face.DIR.UP, Face.DIR.RIGHT, Face.DIR.DOWN].each {
-						String neighborCubeString = getNeighborCubeString(x, y, z+1, it)
-						if(cubes.contains(neighborCubeString)) n.add(new Face(x, y, z+1, it))
-					}
+					if(cubes.contains("${x},${y+1},${z+1}")) n.add(new Face(x, y+1, z+1, DIR.UP))
+					else if(cubes.contains("${x},${y+1},${z}")) n.add(new Face(x, y+1, z, dir))
+					else n.add(new Face(x, y, z, DIR.DOWN))
+						
+					if(cubes.contains("${x},${y-1},${z+1}")) n.add(new Face(x, y-1, z+1, DIR.DOWN))
+					else if(cubes.contains("${x},${y-1},${z}")) n.add(new Face(x, y-1, z, dir))
+					else n.add(new Face(x, y, z, DIR.UP))
+						
+					if(cubes.contains("${x+1},${y},${z+1}")) n.add(new Face(x+1, y, z+1, DIR.LEFT))
+					else if(cubes.contains("${x+1},${y},${z}")) n.add(new Face(x+1, y, z, dir))
+					else n.add(new Face(x, y, z, DIR.RIGHT))
+						
+					if(cubes.contains("${x-1},${y},${z+1}")) n.add(new Face(x-1, y, z+1, DIR.RIGHT))
+					else if(cubes.contains("${x-1},${y},${z}")) n.add(new Face(x-1, y, z, dir))
+					else n.add(new Face(x, y, z, DIR.LEFT))
+					break
+						
 				case Face.DIR.OUT:
-					[Face.DIR.LEFT, Face.DIR.UP, Face.DIR.RIGHT, Face.DIR.DOWN].each {
-						String neighborCubeString = getNeighborCubeString(x, y, z-1, it)
-						if(cubes.contains(neighborCubeString)) n.add(new Face(x, y, z-1, it))
-					}
+					if(cubes.contains("${x},${y+1},${z-1}")) n.add(new Face(x, y+1, z-1, DIR.UP))
+					else if(cubes.contains("${x},${y+1},${z}")) n.add(new Face(x, y+1, z, dir))
+					else n.add(new Face(x, y, z, DIR.DOWN))
+						
+					if(cubes.contains("${x},${y-1},${z-1}")) n.add(new Face(x, y-1, z-1, DIR.DOWN))
+					else if(cubes.contains("${x},${y-1},${z}")) n.add(new Face(x, y-1, z, dir))
+					else n.add(new Face(x, y, z, DIR.UP))
+						
+					if(cubes.contains("${x+1},${y},${z-1}")) n.add(new Face(x+1, y, z-1, DIR.LEFT))
+					else if(cubes.contains("${x+1},${y},${z}")) n.add(new Face(x+1, y, z, dir))
+					else n.add(new Face(x, y, z, DIR.RIGHT))
+						
+					if(cubes.contains("${x-1},${y},${z-1}")) n.add(new Face(x-1, y, z-1, DIR.RIGHT))
+					else if(cubes.contains("${x-1},${y},${z}")) n.add(new Face(x-1, y, z, dir))
+					else n.add(new Face(x, y, z, DIR.LEFT))
+					break
 			}
 			n
-		}
-	}
-	
-	public String getNeighborCubeString(int x, int y, int z, Face.DIR dir) {
-		switch(dir) {
-			case Face.DIR.UP: return "$x,${y+1},$z"
-			case Face.DIR.DOWN: return "$x,${y-1},$z"
-			case Face.DIR.LEFT: return "${x-1},$y,$z"
-			case Face.DIR.RIGHT: return "${x+1},$y,$z"
-			case Face.DIR.IN: return "$x,$y,${z+1}"
-			case Face.DIR.OUT: return "$x,$y,${z-1}"
 		}
 	}
 	
@@ -117,7 +184,7 @@ public class Day18 extends Day{
 		List<Integer> start = lines.min { line ->
 			cubes.add(line)
 			line.split(",").collect { it as Integer }[0]
-		}.collect { it as Integer }
+		}.split(",")
 		Face f = new Face(start[0], start[1], start[2], Face.DIR.LEFT)
 		
 		Map<String, Face> visited = new HashMap<>()
@@ -132,11 +199,14 @@ public class Day18 extends Day{
 			List<Face> neighbors = face.getNeighbors(cubes)
 			neighbors.each { neighbor ->
 				if(!visited.containsKey(neighbor.id())) {
-					visited.put()
+					visited.put(neighbor.id(), neighbor)
+					candidates.add(neighbor.id())
 				}
 			}
 		}
+		println visited
+
 		
-		
+		visited.size()
 	}
 }
