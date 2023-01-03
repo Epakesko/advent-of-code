@@ -1,8 +1,9 @@
 package com.epakesko.advent.of.code.aoc_2022.day11;
 
+import java.util.regex.Matcher
+
 import com.epakesko.advent.of.code.common.Util
 import com.epakesko.advent.of.code.day.Day
-import java.util.regex.Matcher
 
 public class Day11 extends Day{
 	

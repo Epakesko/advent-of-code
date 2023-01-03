@@ -1,10 +1,7 @@
 package com.epakesko.advent.of.code.aoc_2022.day18;
 
-import java.awt.Shape
-
 import com.epakesko.advent.of.code.common.Util
 import com.epakesko.advent.of.code.day.Day
-import groovy.json.JsonSlurper
 
 public class Day18 extends Day{
 	

@@ -2,12 +2,10 @@ package com.epakesko.advent.of.code.aoc_2022.day15;
 
 import com.epakesko.advent.of.code.common.Util
 import com.epakesko.advent.of.code.day.Day
-import groovy.json.JsonSlurper
 
 public class Day15 extends Day{
 	@Override
 	def calculateResult(fileName){
-		return -1
 		List<String> lines = Util.readFile(fileName)
 		int row = 2000000
 		def pattern =  /Sensor at x=(-?\d+), y=(-?\d+): closest beacon is at x=(-?\d+), y=(-?\d+)/;
