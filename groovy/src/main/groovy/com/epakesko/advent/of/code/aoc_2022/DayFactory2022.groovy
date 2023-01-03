@@ -20,6 +20,11 @@ import com.epakesko.advent.of.code.aoc_2022.day17.Day17
 import com.epakesko.advent.of.code.aoc_2022.day18.Day18
 import com.epakesko.advent.of.code.aoc_2022.day19.Day19
 import com.epakesko.advent.of.code.aoc_2022.day20.Day20
+import com.epakesko.advent.of.code.aoc_2022.day21.Day21
+import com.epakesko.advent.of.code.aoc_2022.day22.Day22
+import com.epakesko.advent.of.code.aoc_2022.day23.Day23
+import com.epakesko.advent.of.code.aoc_2022.day24.Day24
+import com.epakesko.advent.of.code.aoc_2022.day25.Day25
 import com.epakesko.advent.of.code.day.Day
 import com.epakesko.advent.of.code.day.DayFactory
 import com.epakesko.advent.of.code.exception.NonExistentDayException
@@ -86,11 +91,15 @@ class DayFactory2022 implements DayFactory {
 			case "20":
 				return new Day20();
 			case "21":
+				return new Day21();
 			case "22":
+				return new Day22();
 			case "23":
+				return new Day23();
 			case "24":
+				return new Day24();
 			case "25":
-				throw new UnsolvedDayException("Day $day is not solved yet")
+				return new Day25();
 			default:
 				throw new NonExistentDayException("Day $day is not in the advent calendar");
 		}
