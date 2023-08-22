@@ -4,8 +4,8 @@ import os
 import re
 from bs4 import BeautifulSoup
 
-headers = { "user-agent": "github.com/Epakesko/advent-of-code by bendeguz.takacs@gmail.com" }
-cookies={'session': os.environ.get("AOC_AUTH_TOKEN")}
+headers = {"user-agent": "github.com/Epakesko/advent-of-code by bendeguz.takacs@gmail.com"}
+cookies = {'session': os.environ.get("AOC_AUTH_TOKEN")}
 base_url = "https://adventofcode.com/2022/day/"
 day = sys.argv[1]
 
@@ -32,7 +32,7 @@ with open(os.path.join(day_name, "input.txt"), "w+") as f:
 with open("template.py", "r") as f:
     template = f.read()
 with open(os.path.join(day_name, "sol.py"), "w") as f:
-    f.write(re.sub(r"#NAME", '"{}"'.format(day_title), template))
+    f.write(re.sub(r"#NAME", 'name = "{}"'.format(day_title), template))
 
 # Add the new day to the main script
 with open("main.py", "r") as f:
