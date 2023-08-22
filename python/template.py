@@ -4,7 +4,7 @@ sys.path.append(".")
 sys.path.append("..")
 lines = readLines(__file__)
 
-# NAME
+name = # NAME
 
 
 def part1():

@@ -32,7 +32,7 @@ with open(os.path.join(day_name, "input.txt"), "w+") as f:
 with open("template.py", "r") as f:
     template = f.read()
 with open(os.path.join(day_name, "sol.py"), "w") as f:
-    f.write(re.sub(r"#NAME", 'name = "{}"'.format(day_title), template))
+    f.write(re.sub(r"#NAME", '"{}"'.format(day_title), template))
 
 # Add the new day to the main script
 with open("main.py", "r") as f:
