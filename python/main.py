@@ -3,9 +3,10 @@ import sys
 import time
 import day01.sol
 import day02.sol
+import day03.sol
 #IMPORT DAYS
 
-days = [day01, day02] #SOLVED DAYS
+days = [day01, day02, day03] #SOLVED DAYS
 
 def runDay(day, singleDay):
     start = time.perf_counter()
@@ -50,6 +51,8 @@ if(len(sys.argv) > 1):
             runDay(day01.sol, True)
         case "2":
             runDay(day02.sol, True)
+        case "3":
+            runDay(day03.sol, True)
         #RUN DAYS
         case _:
             print(sys.argv[1] + " is not done. Please provide the day as a simple one or two digit number.")
