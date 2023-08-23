@@ -32,13 +32,13 @@ with open(os.path.join(day_name, "input.txt"), "w+") as f:
 with open("template.py", "r") as f:
     template = f.read()
 with open(os.path.join(day_name, "sol.py"), "w") as f:
-    f.write(re.sub(r"#NAME", '"{}"'.format(day_title), template))
+    f.write(re.sub(r"# NAME", '"{}"'.format(day_title), template))
 
 # Add the new day to the main script
 with open("main.py", "r") as f:
     main = f.read()
-main = re.sub(r"(days = \[.*)(\] #SOLVED DAYS)", r"\1, {}\2".format(day_name), main)
-main = re.sub(r"(#RUN DAYS)", r'case "{}":\n            runDay({}.sol, True)\n        \1'.format(day, day_name), main)
-main = re.sub(r"(#IMPORT DAYS)", r'import {}.sol\n\1'.format(day_name), main)
+main = re.sub(r"(days = \[.*)(\]  # SOLVED DAYS)", r"\1, {}\2".format(day_name), main)
+main = re.sub(r"(# RUN DAYS)", r'case "{}":\n            runDay({}.sol, True)\n        \1'.format(day, day_name), main)
+main = re.sub(r"(# IMPORT DAYS)", r'import {}.sol\n\1'.format(day_name), main)
 with open("main.py", "w") as f:
     f.write(main)

@@ -4,9 +4,10 @@ import time
 import day01.sol
 import day02.sol
 import day03.sol
-#IMPORT DAYS
+# IMPORT DAYS
 
-days = [day01, day02, day03] #SOLVED DAYS
+days = [day01, day02, day03]  # SOLVED DAYS
+
 
 def runDay(day, singleDay):
     start = time.perf_counter()
@@ -17,23 +18,24 @@ def runDay(day, singleDay):
 
     part1Color = colors.GREEN
     part1Time = mid - start
-    if(part1Time > 1.5):
-        part1Color = colors.RED 
-    elif(part1Time > 0.5):
+    if (part1Time > 1.5):
+        part1Color = colors.RED
+    elif (part1Time > 0.5):
         part1Color = colors.YELLOW
 
     part2Color = colors.GREEN
     part2Time = end - mid
-    if(part2Time > 1.5):
-        part2Color = colors.RED 
-    elif(part2Time > 0.5):
+    if (part2Time > 1.5):
+        part2Color = colors.RED
+    elif (part2Time > 0.5):
         part2Color = colors.YELLOW
 
-    if(singleDay): 
+    if (singleDay):
         print(f"{colors.HEADER}{day.name} - part1:{colors.ENDC} {part1} {part1Color}({part1Time:0.4f}s){colors.ENDC}, {colors.HEADER}part2:{colors.ENDC} {part2} {part2Color}({part2Time:0.4f}s){colors.ENDC}")
     else:
-        print(format_row.format("", day.name, f"{part1} {part1Color}({part1Time:0.4f}s){colors.ENDC}", f"{part2} {part2Color}({part2Time:0.4f}s){colors.ENDC}", ""))
-        
+        print(format_row.format("", day.name, f"{part1} {part1Color}({part1Time:0.4f}s){colors.ENDC}",
+              f"{part2} {part2Color}({part2Time:0.4f}s){colors.ENDC}", ""))
+
 
 class colors:
     HEADER = '\033[36m'
@@ -42,10 +44,11 @@ class colors:
     RED = "\033[31m"
     ENDC = '\033[0m'
 
+
 format_header = colors.HEADER + "{:<1}{:^30}{:^30}{:^30}{:>1}" + colors.ENDC
 format_row = "{:<1}{:^30}{:^39}{:^39}{:>1}"
 
-if(len(sys.argv) > 1):
+if (len(sys.argv) > 1):
     match sys.argv[1]:
         case "1":
             runDay(day01.sol, True)
@@ -53,7 +56,7 @@ if(len(sys.argv) > 1):
             runDay(day02.sol, True)
         case "3":
             runDay(day03.sol, True)
-        #RUN DAYS
+        # RUN DAYS
         case _:
             print(sys.argv[1] + " is not done. Please provide the day as a simple one or two digit number.")
 else:
