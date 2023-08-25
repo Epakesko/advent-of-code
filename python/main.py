@@ -7,9 +7,10 @@ import day03.sol
 import day04.sol
 import day05.sol
 import day06.sol
+import day07.sol
 # IMPORT DAYS
 
-days = [day01, day02, day03, day04, day05, day06]  # SOLVED DAYS
+days = [day01, day02, day03, day04, day05, day06, day07]  # SOLVED DAYS
 
 
 def runDay(day, singleDay):
@@ -65,6 +66,8 @@ if (len(sys.argv) > 1):
             runDay(day05.sol, True)
         case "6":
             runDay(day06.sol, True)
+        case "7":
+            runDay(day07.sol, True)
         # RUN DAYS
         case _:
             print(sys.argv[1] + " is not done. Please provide the day as a simple one or two digit number.")
