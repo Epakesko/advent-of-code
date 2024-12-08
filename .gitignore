@@ -71,3 +71,7 @@ build
 
 # Python
 __pycache__
+
+
+# Inputs
+input.txt
