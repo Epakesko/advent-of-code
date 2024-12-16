@@ -66,31 +66,37 @@ x_values, y_values = zip(*displayable)
 # Create a scatter plot
 plt.figure(figsize=(0, 40))
 fig, ax = plt.subplots()
-line, = ax.plot(x_values, y_values, 'o', label='Robots', markersize=1)
+line, = ax.plot(x_values, y_values, 'o', markersize=2)
+line.set_color((1, 0, 0))
 #plt.scatter(x_values, y_values, color='blue', marker='o', label='Points')
 
 # Add labels and title
-plt.title('Scatter Plot of Coordinates', fontsize=16)
-plt.xlabel('X-axis', fontsize=12)
-plt.ylabel('Y-axis', fontsize=12)
+plt.title('Ho ho ho', fontsize=16)
 
 # Add grid
 plt.grid(True, linestyle='--', alpha=0.7)
 
 # Show legend
 plt.legend()
-move(8260)
+move(8268.5)
 def update(num, plt, line):
-    move(0.05)
+    speed = max(min(abs(8270 - totalelapsed) / 100, 0.01), 0.002)
+    if totalelapsed + speed >= 8270:
+        speed = 8270 - totalelapsed
+    if totalelapsed < 8270:
+        move(speed)
     print("i have moved", totalelapsed, "times")
     displayable = ((robot[0]-40, 80-robot[1]) for robot in robots if 40 <= robot[0] <= 80 and 40 <= robot[1] <= 80)
     x_values, y_values = zip(*displayable)
-    plt.title(totalelapsed, fontsize=16)
+    #plt.title(int(totalelapsed), fontsize=16)
     line.set_data(x_values, y_values)
+    colorr = min(abs(8270 - totalelapsed) * 1000, 255) / 255
+    colorg = abs(colorr - 1)
+    line.set_color((colorr, colorg, 0))
     return line,
 
-ani = animation.FuncAnimation(fig, update, 400, interval=100, fargs=[plt, line], blit=True)
-ani.save('animation_drawing6.gif', writer='imagemagick', fps=10)
+ani = animation.FuncAnimation(fig, update, 500, interval=0.2, fargs=[plt, line], blit=True)
+ani.save('animation_drawing7.gif', writer='imagemagick', fps=200)
 
 # Show the plot
 #plt.show()
