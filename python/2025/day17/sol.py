@@ -11,7 +11,6 @@ program = list(map(lambda x: int(x), lines[4].split(" ")[1].split(",")))
 
 out = ""
 
-
 def combo_operand(operand):
     if operand < 0 or operand > 6:
         print("Error: Operand out of range")
@@ -77,8 +76,7 @@ def cdv(operand):
     instruction_pointer += 2
 
 
-def run(check=False):
-    count = 0
+def run(b_goal = None):
     while instruction_pointer < len(program):
         instruction = program[instruction_pointer]
         operand = program[instruction_pointer + 1]
@@ -94,28 +92,33 @@ def run(check=False):
             bxc()
         elif instruction == 5:
             res = out_(combo_operand(operand))
-            count += 1
-            if check and (count > len(program) or program[count-1] != res):
-                return False
+            if b_goal != None:
+                return True if res == b_goal else False
         elif instruction == 6:
             bdv(combo_operand(operand))
         elif instruction == 7:
             cdv(combo_operand(operand))
         # print(register_a, register_b, register_c, instruction_pointer, "---", out)
-        if count == 2:
-            return True
-    return count == len(program)
 
+
+run()
+print(out)
 
 i = 0
-while (True):
-    if i % 100000 == 0:
-        print(i)
-    register_a = i
-    register_b = 0
-    register_c = 0
-    instruction_pointer = 0
-    out = ""
-    if run(True):
-        print(i)
-    i += 1
+j = 1
+starts = [0]
+for j in range(1, len(program) + 1):
+    need_end = program[-j]
+    new_starts = []
+    for start in starts:
+        for i in range(start * 8, start * 8 + 8):
+            register_a = i
+            register_b = 0
+            register_c = 0
+            instruction_pointer = 0
+            out = ""
+            if run(need_end):
+                new_starts.append(i)
+    starts = new_starts
+    
+print(starts[0])
